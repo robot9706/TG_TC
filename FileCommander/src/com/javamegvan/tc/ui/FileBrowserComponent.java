@@ -71,7 +71,7 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 			_table.setTableEventListener(this);
 			
 			JScrollPane pane = new JScrollPane(_table);
-			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); 
 			add(pane);
 		}
 		

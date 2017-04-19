@@ -186,7 +186,7 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 		if (me.getButton() == MouseEvent.BUTTON3) {
 			int r = super.rowAtPoint(me.getPoint());
 			if (r >= 0 && r < super.getRowCount()) {
-				super.setRowSelectionInterval(r, r);
+				super.setRowSelectionInterval(r, r);		
 			} else {
 				super.clearSelection();
 			}
