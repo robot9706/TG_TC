@@ -18,18 +18,21 @@ public class FileSizeTableCellRenderer extends DefaultTableCellRenderer {
 
 		long fileSize = (long)table.getModel().getValueAt(row, col);
 		
-		String text = String.valueOf(fileSize) + " B";
-		int idx;
-		for(idx = 0; idx < _divisors.length; idx++){
-			if(fileSize < _divisors[idx]){
-				break;
+		String text = (fileSize < 0 ? "<DIR>" : String.valueOf(fileSize) + " B");
+		
+		if(fileSize > -1){
+			int idx;
+			for(idx = 0; idx < _divisors.length; idx++){
+				if(fileSize < _divisors[idx]){
+					break;
+				}
 			}
-		}
-		if(idx != 0){
-			float newSize = (float)fileSize / _divisors[idx - 1];
-			newSize = (float)Math.round(newSize * 100.0f) / 100.0f;
-			
-			text = String.valueOf(newSize) + " " + _sizeNames[idx - 1];
+			if(idx != 0){
+				float newSize = (float)fileSize / _divisors[idx - 1];
+				newSize = (float)Math.round(newSize * 100.0f) / 100.0f;
+				
+				text = String.valueOf(newSize) + " " + _sizeNames[idx - 1];
+			}
 		}
 		
 		JLabel l = new JLabel(text);

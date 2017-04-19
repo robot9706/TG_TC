@@ -5,10 +5,13 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
+
+import com.javamegvan.tc.ui.FileUtils;
 
 public class FileBrowseTable extends JTable implements MouseListener {
 	private static final long serialVersionUID = 3L;
@@ -17,6 +20,8 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	public static Color BackgroundSelectionColor = new Color(135, 206, 250);;
 	public static Color TextNonSelectionColor = Color.BLACK;
 	public static Color BackgroundNonSelectionColor = Color.WHITE;
+	
+	private static SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy. dd. MM.  HH:mm:ss");
 	
 	private FileTableModel _model = new FileTableModel();
 	
@@ -47,23 +52,46 @@ public class FileBrowseTable extends JTable implements MouseListener {
 		}
 	}
 	
-	public void addRootFile(File f){
+	/*public void addRootFile(File f){
 		addRowEntry(new FileRow(f, true));
 	}
 	
 	public void addFileRow(File f){
 		addRowEntry(new FileRow(f, false));
+	}*/
+	
+	public void navigateTo(File root){
+		for(int x = _model.getRowCount() - 1;x >= 0; x--){
+			_model.removeRow(x);
+		}
+		_model.setRowCount(0);
+		
+		if(root.getParentFile() != null){
+			addRowEntry(new FileRow(root.getParentFile(), true));
+		}
+		
+		if(root.listFiles() != null){
+			for(File f : root.listFiles()){
+				if(f.isDirectory()){
+					addRowEntry(new FileRow(f, false));
+				}
+			}
+
+			for(File f : root.listFiles()){
+				if(!f.isDirectory()){
+					addRowEntry(new FileRow(f, false));
+				}
+			}
+		}
 	}
 	
 	private void addRowEntry(FileRow row){
 		String ext = "-";
 		if(row.TargetFile.isFile()){
-			String[] parts = row.TargetFile.getName().split("\\.");
-			if(parts.length > 1){
-				ext = parts[parts.length - 1];
-			}
+			ext = FileUtils.getFileExtension(row.TargetFile);
 		}
-		_model.addRow(new Object[] { row, ext, row.TargetFile.length(), "" });
+		_model.addRow(new Object[] { row, ext, (row.TargetFile.isDirectory() ? -1 : row.TargetFile.length()),
+				_dateFormat.format(row.TargetFile.lastModified()) });
 	}
 
 	public void mousePressed(MouseEvent me) {
@@ -71,7 +99,9 @@ public class FileBrowseTable extends JTable implements MouseListener {
         int row = super.rowAtPoint(p);
         if (row != -1 && me.getClickCount() == 2) {
             FileRow f = (FileRow)super.getValueAt(row, 0);
-            
+            if(f.TargetFile.isDirectory()){
+            	navigateTo(f.TargetFile);
+            }
         }        
 	}
 	

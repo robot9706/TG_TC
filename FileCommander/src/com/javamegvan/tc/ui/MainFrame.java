@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.javamegvan.tc.ui.filetable.FileBrowseTable;
+import com.javamegvan.tc.ui.filetable.IconCache;
 
 public class MainFrame extends JFrame {
 	public MainFrame(){
@@ -26,6 +27,8 @@ public class MainFrame extends JFrame {
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
+		IconCache.Load();
 		
 		buildUI();
 	}
@@ -89,23 +92,9 @@ public class MainFrame extends JFrame {
 	private JScrollPane createFileBrowseList(){
 		FileBrowseTable table = new FileBrowseTable();
 		
-		File root = new File("C:\\Users\\");
-		if(root.getParentFile() != null){
-			table.addRootFile(root);
-		}
-		
-		for(File f : root.listFiles()){
-			if(f.isDirectory()){
-				table.addFileRow(f);
-			}
-		}
-		
-		for(File f : root.listFiles()){
-			if(!f.isDirectory()){
-				table.addFileRow(f);
-			}
-		}
-		
+		File root = new File("C:\\Users\\Bence\\Documents");
+		table.navigateTo(root);
+
 		JScrollPane pane = new JScrollPane(table);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
 		return pane;
