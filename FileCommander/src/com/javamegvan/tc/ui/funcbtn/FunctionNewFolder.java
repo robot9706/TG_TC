@@ -29,11 +29,13 @@ public class FunctionNewFolder implements FunctionButton {
 		path=new StringBuffer(path).insert(path.length(),"\\").toString();
 		
 		
-	    File newdir = new File(path+"ï¿½j mappa");
+	    File newdir = new File(path+"Új mappa");
 	    if(newdir.exists()){
+	     //TODO:ha létezik más nevût létrehozni.
 	    }else{
 	    	newdir.mkdir();  
 	    }
+	  //TODO:Frissíteni az ablakot.
 	   
 	}
 }
