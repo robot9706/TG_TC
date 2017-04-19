@@ -2,7 +2,9 @@ package com.javamegvan.tc.ui;
 
 import java.io.File;
 
-public class FileUtils {
+import javax.swing.JOptionPane;
+
+public class Utils {
 	public static String getFileExtension(File f){
 		String ext = "";
 		if(f.isFile()){
@@ -17,6 +19,9 @@ public class FileUtils {
 	public static String getFileNameWithoutExtension(File f){
 		String name = f.getName();
 		if(f.isFile()){
+			if(name.indexOf('.') == -1){
+				return name;
+			}
 			name = "";
 			
 			String[] parts = f.getName().split("\\.");
@@ -26,5 +31,9 @@ public class FileUtils {
 			}
 		}
 		return name;
+	}
+	
+	public static void createMessageBox(String message, String title){
+		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 }

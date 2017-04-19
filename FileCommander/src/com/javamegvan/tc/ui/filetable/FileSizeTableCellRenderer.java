@@ -39,12 +39,11 @@ public class FileSizeTableCellRenderer extends DefaultTableCellRenderer {
 		l.setOpaque(true);
 		l.setHorizontalAlignment(SwingConstants.LEFT);
 		
+		l.setForeground(FileBrowseTable.TextColor);
 		if (table.getSelectedRow() == row) {
 			l.setBackground(FileBrowseTable.BackgroundSelectionColor);
-			l.setForeground(FileBrowseTable.TextSelectionColor);
 		} else {
 			l.setBackground(FileBrowseTable.BackgroundNonSelectionColor);
-			l.setForeground(FileBrowseTable.TextNonSelectionColor);
 		}
 
 		return l;

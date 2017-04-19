@@ -13,14 +13,13 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import com.javamegvan.tc.ui.FileUtils;
+import com.javamegvan.tc.ui.Utils;
 
 public class FileBrowseTable extends JTable implements MouseListener {
 	private static final long serialVersionUID = 3L;
 	
-	public static Color TextSelectionColor = Color.BLACK;
+	public static Color TextColor = Color.BLACK;
 	public static Color BackgroundSelectionColor = new Color(135, 206, 250);;
-	public static Color TextNonSelectionColor = Color.BLACK;
 	public static Color BackgroundNonSelectionColor = Color.WHITE;
 	
 	private static SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy. dd. MM.  HH:mm:ss");
@@ -34,6 +33,9 @@ public class FileBrowseTable extends JTable implements MouseListener {
 		super.setShowGrid(false);
 		super.setRowSelectionAllowed(true);
 		super.addMouseListener(this);
+		
+		super.setBackground(BackgroundNonSelectionColor);
+		super.setFillsViewportHeight(true);
 		
 		super.setDefaultRenderer(FileRow.class, new FileIconTableCellRenderer());
 		super.setDefaultRenderer(Long.class, new FileSizeTableCellRenderer());
@@ -83,7 +85,7 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	private void addRowEntry(FileRow row){
 		String ext = "-";
 		if(row.TargetFile.isFile()){
-			ext = FileUtils.getFileExtension(row.TargetFile);
+			ext = Utils.getFileExtension(row.TargetFile);
 		}
 		
 		_model.addRow(new Object[] { row, ext, (row.TargetFile.isDirectory() ? -1 : row.TargetFile.length()),
@@ -101,7 +103,8 @@ public class FileBrowseTable extends JTable implements MouseListener {
             	try {
 					Desktop.getDesktop().open(f.TargetFile);
 				} catch (IOException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+					Utils.createMessageBox("Nem található társított alkalmazás!", "Megnyitás");
 				}
             }
         }        

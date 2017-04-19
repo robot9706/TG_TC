@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import com.javamegvan.tc.ui.FileUtils;
+import com.javamegvan.tc.ui.Utils;
 
 public class FileIconTableCellRenderer extends DefaultTableCellRenderer {
 	private static final long serialVersionUID = 1L;
@@ -18,16 +18,22 @@ public class FileIconTableCellRenderer extends DefaultTableCellRenderer {
 		
 		FileRow file = (FileRow)table.getModel().getValueAt(row, col);
 		
-		Icon icon = IconCache.FileIcon;
+		Icon icon = null;
 		if(file.IsRootFolder){
 			icon = IconCache.RootIcon;
 		}else if(file.TargetFile.isDirectory()){
 			icon = IconCache.FolderIcon;
+		}else if(file.TargetFile.isFile()){
+			if(file.TargetFile.isHidden()){
+				icon = IconCache.HiddenFileIcon;
+			}else{
+				icon = IconCache.FileIcon;
+			}
 		}
 		
 		JLabel l = new JLabel(icon);
 		
-		String text = (file.IsRootFolder ? ".." : FileUtils.getFileNameWithoutExtension(file.TargetFile));
+		String text = (file.IsRootFolder ? ".." : Utils.getFileNameWithoutExtension(file.TargetFile));
 		if(file.TargetFile.isDirectory()){
 			text = "[" + text + "]";
 		}
@@ -36,12 +42,11 @@ public class FileIconTableCellRenderer extends DefaultTableCellRenderer {
 		l.setOpaque(true);
 		l.setHorizontalAlignment(SwingConstants.LEFT);
 		
+		l.setForeground(FileBrowseTable.TextColor);
 		if (table.getSelectedRow() == row) {
 			l.setBackground(FileBrowseTable.BackgroundSelectionColor);
-			l.setForeground(FileBrowseTable.TextSelectionColor);
 		} else {
 			l.setBackground(FileBrowseTable.BackgroundNonSelectionColor);
-			l.setForeground(FileBrowseTable.TextNonSelectionColor);
 		}
 
 		return l;
