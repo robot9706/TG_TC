@@ -19,11 +19,17 @@ public class FileStringTableCellRenderer extends DefaultTableCellRenderer {
 		l.setOpaque(true);
 		l.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		l.setForeground(FileBrowseTable.TextColor);
+		FileBrowserTable bTable = (FileBrowserTable)table;
+		if(bTable.Selection.contains((FileRow)table.getModel().getValueAt(row, 0))){
+			l.setForeground(FileBrowserTable.TextSelectedColor);
+		}else{
+			l.setForeground(FileBrowserTable.TextColor);
+		}
+		
 		if (table.getSelectedRow() == row) {
-			l.setBackground(FileBrowseTable.BackgroundSelectionColor);
+			l.setBackground(FileBrowserTable.BackgroundSelectionColor);
 		} else {
-			l.setBackground(FileBrowseTable.BackgroundNonSelectionColor);
+			l.setBackground(FileBrowserTable.BackgroundNonSelectionColor);
 		}
 
 		return l;

@@ -16,13 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.javamegvan.tc.ui.filetable.FileBrowseTable;
+import com.javamegvan.tc.ui.filetable.FileBrowserTable;
 import com.javamegvan.tc.ui.filetable.PathChangedListener;
 
 public class FileBrowserComponent extends JPanel implements ActionListener, PathChangedListener {
 	private static final long serialVersionUID = -4963834230107742761L;
 
-	private FileBrowseTable _table;
+	private FileBrowserTable _table;
 	
 	private JComboBox<File> _driveSelector;
 	private JLabel _driveInfo;
@@ -65,7 +65,7 @@ public class FileBrowserComponent extends JPanel implements ActionListener, Path
 		
 		//File browser table row
 		{
-			_table = new FileBrowseTable();
+			_table = new FileBrowserTable();
 			_table.setPathChangedListener(this);
 			
 			JScrollPane pane = new JScrollPane(_table);
@@ -162,7 +162,7 @@ public class FileBrowserComponent extends JPanel implements ActionListener, Path
 		updateDriveInfo();
 	}
 
-	public void onPathChange(FileBrowseTable source) {
+	public void onPathChange(FileBrowserTable source) {
 		if(source.CurrentFolder == null){
 			_pathInfo.setText("Út: -");
 		}else{

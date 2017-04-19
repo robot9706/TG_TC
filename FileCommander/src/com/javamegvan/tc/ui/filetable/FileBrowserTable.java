@@ -3,11 +3,14 @@ package com.javamegvan.tc.ui.filetable;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
@@ -15,9 +18,10 @@ import javax.swing.table.TableColumn;
 
 import com.javamegvan.tc.ui.Utils;
 
-public class FileBrowseTable extends JTable implements MouseListener {
+public class FileBrowserTable extends JTable implements MouseListener, KeyListener {
 	private static final long serialVersionUID = 3L;
 	
+	public static Color TextSelectedColor = Color.RED;
 	public static Color TextColor = Color.BLACK;
 	public static Color BackgroundSelectionColor = new Color(135, 206, 250);;
 	public static Color BackgroundNonSelectionColor = Color.WHITE;
@@ -29,14 +33,18 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	private PathChangedListener _pathChangeEvent;
 	
 	public File CurrentFolder;
+	public ArrayList<FileRow> Selection = new ArrayList<FileRow>();
 	
-	public FileBrowseTable(){
+	public FileBrowserTable(){
 		super.setModel(_model);
 		super.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 
 		super.setShowGrid(false);
 		super.setRowSelectionAllowed(true);
 		super.addMouseListener(this);
+		
+		super.setFocusable(true);
+		super.addKeyListener(this);
 		
 		super.setBackground(BackgroundNonSelectionColor);
 		super.setFillsViewportHeight(true);
@@ -67,6 +75,9 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	
 	public void navigateTo(File root){
 		CurrentFolder = root;
+		
+		Selection.clear();
+		
 		if(_pathChangeEvent != null){
 			_pathChangeEvent.onPathChange(this);
 		}
@@ -123,6 +134,21 @@ public class FileBrowseTable extends JTable implements MouseListener {
         }        
 	}
 	
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_SPACE){
+			FileRow row = (FileRow)super.getValueAt(super.getSelectedRow(), 0);
+			if(Selection.contains(row)){
+				Selection.remove(row);
+			}else{
+				Selection.add(row);
+			}
+			
+			super.invalidate();
+			super.validate();
+			super.repaint();
+		}
+	}
+	
 	public void mouseClicked(MouseEvent e) {
 	}
 
@@ -133,5 +159,11 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	}
 
 	public void mouseReleased(MouseEvent e) {
+	}
+
+	public void keyReleased(KeyEvent e) {
+	}
+
+	public void keyTyped(KeyEvent e) {
 	}
 }
