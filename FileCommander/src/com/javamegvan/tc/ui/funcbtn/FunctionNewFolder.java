@@ -1,6 +1,7 @@
 package com.javamegvan.tc.ui.funcbtn;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import com.javamegvan.tc.ui.MainFrame;
 
@@ -22,9 +23,17 @@ public class FunctionNewFolder implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
-		//TODO: Implement
-		//frame.getFocusedFile()
-		//frame.BrowserA.getSelectedFiles(true/false);
-		//frame.BrowserB.getSelectedFiles(true/false);
+
+		
+		String path = frame.getFocusedBrowser()._table.CurrentFolder.getPath();
+		path=new StringBuffer(path).insert(path.length(),"\\").toString();
+		
+		
+	    File newdir = new File(path+"�j mappa");
+	    if(newdir.exists()){
+	    }else{
+	    	newdir.mkdir();  
+	    }
+	   
 	}
 }
