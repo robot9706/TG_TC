@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 		super.setTitle("Andiamo A Comandare");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setSize(1280, 720);
-		
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
@@ -49,8 +49,8 @@ public class MainFrame extends JFrame {
 				JPanel list = new JPanel();
 				list.setLayout(new GridLayout(1,2));
 				
-				list.add(_browserA = new FileBrowserComponent());
-				list.add(_browserB = new FileBrowserComponent());
+				list.add(_browserA = new FileBrowserComponent(this));
+				list.add(_browserB = new FileBrowserComponent(this));
 				
 				_browserA.navigateTo(new File("C:\\"));
 				_browserB.navigateTo(new File("C:\\"));
@@ -92,6 +92,14 @@ public class MainFrame extends JFrame {
 			m.add(new JMenuItem("Kilépés"));
 			
 			super.setJMenuBar(j);	
+		}
+	}
+
+	public void toggleSideFocus(){
+		if(_browserA.hasFocus()){
+			_browserB.doFocus();
+		}else{
+			_browserA.doFocus();
 		}
 	}
 }

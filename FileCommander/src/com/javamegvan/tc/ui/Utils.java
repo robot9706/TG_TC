@@ -1,5 +1,6 @@
 package com.javamegvan.tc.ui;
 
+import java.awt.Color;
 import java.io.File;
 
 import javax.swing.JOptionPane;
@@ -65,5 +66,13 @@ public class Utils {
 	
 	public static void createMessageBox(String message, String title){
 		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public static Color getBrighterColor(Color original, float brightness){
+		brightness += 1.0f;
+		
+		return new Color(Math.min((int)(original.getRed() * brightness), 255),
+						 Math.min((int)(original.getGreen() * brightness), 255),
+						 Math.min((int)(original.getBlue() * brightness), 255));
 	}
 }

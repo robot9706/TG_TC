@@ -3,6 +3,8 @@ package com.javamegvan.tc.ui.filetable;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Point;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -19,23 +21,28 @@ import javax.swing.table.TableColumn;
 
 import com.javamegvan.tc.ui.Utils;
 
-public class FileBrowserTable extends JTable implements MouseListener, KeyListener {
+public class FileBrowserTable extends JTable implements MouseListener, KeyListener, FocusListener {
 	private static final long serialVersionUID = 3L;
 	
-	public static Color TextSelectedColor = Color.RED;
-	public static Color TextColor = Color.BLACK;
-	public static Color BackgroundSelectionColor = Color.LIGHT_GRAY;
-	public static Color BackgroundHoverSelectionColor = new Color(135, 206, 250);
-	public static Color BackgroundNonSelectionColor = Color.WHITE;
+	static Color _textSelectedColor = Color.RED;
+	static Color _textColor = Color.BLACK;
+	static Color _backgroundSelectionColor = new Color(225, 225, 225);
+	static Color _backgroundHoverSelectionColor = new Color(135, 206, 250);
+	static Color _backgroundNonSelectionColor = Color.WHITE;
+	static float _nonFocusBrightness = 0.15f;
 	
 	private static SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy. dd. MM.  HH:mm:ss");
 	
 	private FileTableModel _model = new FileTableModel();
 	
-	private PathChangedListener _pathChangeEvent;
+	private FileBrowserEventListener _eventListener;
 	
 	public File CurrentFolder;
 	public ArrayList<FileRow> Selection = new ArrayList<FileRow>();
+	
+	private boolean _doMouseSelection = false;
+	private boolean _doRangeSelection = false;
+	private int _lastSelectedItem = -1;
 	
 	public FileBrowserTable(){
 		super.setModel(_model);
@@ -46,9 +53,10 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 		super.addMouseListener(this);
 		
 		super.setFocusable(true);
+		super.addFocusListener(this);
 		super.addKeyListener(this);
 		
-		super.setBackground(BackgroundNonSelectionColor);
+		super.setBackground(_backgroundNonSelectionColor);
 		super.setFillsViewportHeight(true);
 		
 		super.setDefaultRenderer(FileRow.class, new FileIconTableCellRenderer());
@@ -71,17 +79,18 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 		}
 	}
 	
-	public void setPathChangedListener(PathChangedListener l){
-		_pathChangeEvent = l;
+	public void setTableEventListener(FileBrowserEventListener l){
+		_eventListener = l;
 	}
 	
 	public void navigateTo(File root){
 		CurrentFolder = root;
 		
 		Selection.clear();
+		_lastSelectedItem = -1;
 		
-		if(_pathChangeEvent != null){
-			_pathChangeEvent.onPathChange(this);
+		if(_eventListener != null){
+			_eventListener.onPathChange(this);
 		}
 		
 		for(int x = _model.getRowCount() - 1;x >= 0; x--){
@@ -117,48 +126,106 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 		_model.addRow(new Object[] { row, ext, (row.TargetFile.isDirectory() ? -1 : row.TargetFile.length()),
 				_dateFormat.format(row.TargetFile.lastModified()) });
 	}
+	
+	private void redrawComponent(){
+		super.invalidate();
+		super.validate();
+		super.repaint();
+	}
+	
+	private void updateSelection(FileRow row, boolean redraw){
+		if(Selection.contains(row)){
+			Selection.remove(row);
+		}else{
+			Selection.add(row);
+		}
+		
+		if(_eventListener != null){
+			_eventListener.onSelectionChange(this);
+		}
+		
+		if(redraw){
+			redrawComponent();
+		}
+	}
 
 	public void mousePressed(MouseEvent me) {
         Point p = me.getPoint();
         int row = super.rowAtPoint(p);
-        if (row != -1 && me.getClickCount() % 2 == 0) {
-            FileRow f = (FileRow)super.getValueAt(row, 0);
-            if(f.TargetFile.isDirectory()){
-            	navigateTo(f.TargetFile);
-            }else{
-            	try {
-					Desktop.getDesktop().open(f.TargetFile);
-				} catch (IOException e) {
-					//e.printStackTrace();
-					Utils.createMessageBox("Nem található társított alkalmazás!", "Megnyitás");
-				}
-            }
+        if (row != -1) {
+        	if(me.getClickCount() % 2 == 0){
+                FileRow f = (FileRow)super.getValueAt(row, 0);
+                if(f.TargetFile.isDirectory()){
+                	navigateTo(f.TargetFile);
+                }else{
+                	try {
+    					Desktop.getDesktop().open(f.TargetFile);
+    				} catch (IOException e) {
+    					//e.printStackTrace();
+    					Utils.createMessageBox("Nem található társított alkalmazás!", "Megnyitás");
+    				}
+                }	
+        	}else if(me.getClickCount() < 2){
+        		if(_doMouseSelection){
+        			if(_doRangeSelection){
+        				int to = Math.max(row, _lastSelectedItem);
+        				for(int x = Math.min(row, _lastSelectedItem); x <= to;x++){
+        					updateSelection((FileRow)super.getValueAt(x, 0), (x == to));	
+        				}
+        			}else{
+        				updateSelection((FileRow)super.getValueAt(row, 0), true);
+        			}
+        		}
+        		
+        		_lastSelectedItem = row;
+        	}
         }        
 	}
 	
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			FileRow row = (FileRow)super.getValueAt(super.getSelectedRow(), 0);
-			if(Selection.contains(row)){
-				Selection.remove(row);
-			}else{
-				Selection.add(row);
+			updateSelection((FileRow)super.getValueAt(super.getSelectedRow(), 0), true);
+		}else if(e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_SHIFT){
+			_doMouseSelection = true;
+			_doRangeSelection = (e.getKeyCode() == KeyEvent.VK_SHIFT);
+		}
+	}
+	
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_SHIFT){
+			_doMouseSelection = false;
+			_doRangeSelection = false;
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_TAB){
+			e.consume();
+			if(_eventListener != null){
+				_eventListener.onSwitchSide();
 			}
-			
-			super.invalidate();
-			super.validate();
-			super.repaint();
 		}
 	}
 	
 	public void setLabelColors(JLabel lbl, boolean hoverSelection, boolean itemSelected){
-		lbl.setForeground(itemSelected ? TextSelectedColor : TextColor);
+		lbl.setForeground(itemSelected ? _textSelectedColor : _textColor);
 		
+		Color bg;
 		if(hoverSelection){
-			lbl.setBackground(BackgroundHoverSelectionColor);
+			bg = _backgroundHoverSelectionColor;
 		}else{
-			lbl.setBackground(itemSelected ? BackgroundSelectionColor : BackgroundNonSelectionColor);
+			bg = (itemSelected ? _backgroundSelectionColor : _backgroundNonSelectionColor);
 		}
+		
+		if(!super.isFocusOwner() && !itemSelected){
+			bg = Utils.getBrighterColor(bg, _nonFocusBrightness);
+		}
+		lbl.setBackground(bg);
+	}
+	
+	public void focusLost(FocusEvent arg0) {
+		redrawComponent();
+	}
+	
+	public void focusGained(FocusEvent arg0) {
+		redrawComponent();
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -171,9 +238,6 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	}
 
 	public void mouseReleased(MouseEvent e) {
-	}
-
-	public void keyReleased(KeyEvent e) {
 	}
 
 	public void keyTyped(KeyEvent e) {

@@ -17,9 +17,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.javamegvan.tc.ui.filetable.FileBrowserTable;
-import com.javamegvan.tc.ui.filetable.PathChangedListener;
+import com.javamegvan.tc.ui.filetable.FileRow;
+import com.javamegvan.tc.ui.filetable.FileBrowserEventListener;
 
-public class FileBrowserComponent extends JPanel implements ActionListener, PathChangedListener {
+public class FileBrowserComponent extends JPanel implements ActionListener, FileBrowserEventListener {
 	private static final long serialVersionUID = -4963834230107742761L;
 
 	private FileBrowserTable _table;
@@ -29,7 +30,11 @@ public class FileBrowserComponent extends JPanel implements ActionListener, Path
 	private JLabel _pathInfo;
 	private JLabel _selectionInfo;
 	
-	public FileBrowserComponent(){
+	private MainFrame _main;
+	
+	public FileBrowserComponent(MainFrame main){
+		_main = main;
+		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		//Top row
@@ -66,7 +71,7 @@ public class FileBrowserComponent extends JPanel implements ActionListener, Path
 		//File browser table row
 		{
 			_table = new FileBrowserTable();
-			_table.setPathChangedListener(this);
+			_table.setTableEventListener(this);
 			
 			JScrollPane pane = new JScrollPane(_table);
 			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
@@ -127,6 +132,16 @@ public class FileBrowserComponent extends JPanel implements ActionListener, Path
 		_driveInfo.setText(formatDriveSize(drive.getFreeSpace()) + " szabad " + formatDriveSize(drive.getTotalSpace()) + "-ból.");
 	}
 	
+	private boolean isFileSelected(File f){
+		for(FileRow r : _table.Selection){
+			if(r.TargetFile.equals(f)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	private void updateSelectionText(){
 		long selectionSize = 0;
 		long totalSize = 0;
@@ -136,11 +151,20 @@ public class FileBrowserComponent extends JPanel implements ActionListener, Path
 		int totalFolders = 0;
 		
 		for(File f : _table.CurrentFolder.listFiles()){
-			totalSize += f.length();
 			if(f.isFile()){
+				totalSize += f.length();
 				totalFiles++;
+				
+				if(isFileSelected(f)){
+					selectedFiles++;
+					selectionSize += f.length();
+				}
 			}else if(f.isDirectory()){
 				totalFolders++;
+				
+				if(isFileSelected(f)){
+					selectedFolders++;
+				}
 			}
 		}
 		
@@ -169,5 +193,21 @@ public class FileBrowserComponent extends JPanel implements ActionListener, Path
 			_pathInfo.setText("Út: " + source.CurrentFolder.getPath());
 			updateSelectionText();
 		}
+	}
+
+	public void onSelectionChange(FileBrowserTable source) {
+		updateSelectionText();
+	}
+	
+	public boolean hasFocus(){
+		return _table.isFocusOwner();
+	}
+	
+	public void doFocus(){
+		_table.requestFocus();
+	}
+
+	public void onSwitchSide() {
+		_main.toggleSideFocus();
 	}
 }
