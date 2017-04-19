@@ -1,0 +1,49 @@
+package com.javamegvan.tc.ui.filetable;
+
+import java.awt.Component;
+
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+
+public class FileSizeTableCellRenderer extends DefaultTableCellRenderer {
+	private static final long serialVersionUID = 1L;
+	
+	private static long[] _divisors = new long[] { 1024, 1024 * 1024, 1024 * 1024 * 1024 };
+	private static String[] _sizeNames = new String[] { "KB", "MB", "GB" };
+	
+	public Component getTableCellRendererComponent(JTable table, Object value,
+			boolean isSelected, boolean hasFocus, int row, int col) {
+
+		long fileSize = (long)table.getModel().getValueAt(row, col);
+		
+		String text = String.valueOf(fileSize) + " B";
+		int idx;
+		for(idx = 0; idx < _divisors.length; idx++){
+			if(fileSize < _divisors[idx]){
+				break;
+			}
+		}
+		if(idx != 0){
+			float newSize = (float)fileSize / _divisors[idx - 1];
+			newSize = (float)Math.round(newSize * 100.0f) / 100.0f;
+			
+			text = String.valueOf(newSize) + " " + _sizeNames[idx - 1];
+		}
+		
+		JLabel l = new JLabel(text);
+		l.setOpaque(true);
+		l.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		if (hasFocus) {
+			l.setBackground(FileBrowseTable.BackgroundSelectionColor);
+			l.setForeground(FileBrowseTable.TextSelectionColor);
+		} else {
+			l.setBackground(FileBrowseTable.BackgroundNonSelectionColor);
+			l.setForeground(FileBrowseTable.TextNonSelectionColor);
+		}
+
+		return l;
+	}
+}

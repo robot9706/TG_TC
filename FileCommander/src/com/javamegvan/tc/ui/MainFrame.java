@@ -1,30 +1,22 @@
 package com.javamegvan.tc.ui;
 
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+
+import com.javamegvan.tc.ui.filetable.FileBrowseTable;
 
 public class MainFrame extends JFrame {
 	public MainFrame(){
@@ -35,10 +27,10 @@ public class MainFrame extends JFrame {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
-		BuildUI();
+		buildUI();
 	}
 	
-	private void BuildUI(){
+	private void buildUI(){
 		Container content = super.getContentPane();
 		
 		//UI
@@ -51,8 +43,8 @@ public class MainFrame extends JFrame {
 				JPanel list = new JPanel();
 				list.setLayout(new GridLayout(1,2));
 				
-				list.add(CreateFileBrowseList());
-				list.add(CreateFileBrowseList());
+				list.add(createFileBrowseList());
+				list.add(createFileBrowseList());
 					
 				c.weightx = 1.0;
 				c.fill = GridBagConstraints.BOTH;
@@ -62,7 +54,7 @@ public class MainFrame extends JFrame {
 				content.add(list, c);
 			}
 			
-			//Szerkesztõ gombok
+			//Edit buttons
 			{
 				JPanel pl = new JPanel();
 				pl.setLayout(new GridLayout(1,7));
@@ -82,7 +74,7 @@ public class MainFrame extends JFrame {
 			}
 		}
 	    
-		//File menü
+		//File menu
 		{
 			JMenuBar j = new JMenuBar();
 	        	
@@ -94,67 +86,25 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
-	private JScrollPane CreateFileBrowseList(){
-		/*JList list = new JList(new Object[]{ "..", "Mappa 1", "Mappa 2", "File 1", "File 2" });
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setLayoutOrientation(JList.VERTICAL);
-		list.setVisibleRowCount(-1);
-		list.setCellRenderer(new IconListCellRenderer());*/
+	private JScrollPane createFileBrowseList(){
+		FileBrowseTable table = new FileBrowseTable();
 		
-		FileTableModel mdl = new FileTableModel();
-		JTable table = new JTable(mdl);
-		table.setShowGrid(false);
-		table.setDefaultRenderer(File.class, new FileIconTableCellRenderer());
-		{
-			TableColumn kit = table.getColumn("Kit.");
-			kit.setMinWidth(50);
-			kit.setMaxWidth(50);
-			
-			kit = table.getColumn("Méret");
-			kit.setMinWidth(100);
-			kit.setMaxWidth(100);
-			
-			kit = table.getColumn("Dátum");
-			kit.setMinWidth(150);
-			kit.setMaxWidth(150);
+		File root = new File("C:\\Users\\");
+		if(root.getParentFile() != null){
+			table.addRootFile(root);
 		}
 		
-		File root = new File("C:");
 		for(File f : root.listFiles()){
 			if(f.isDirectory()){
-				mdl.addRow(new Object[] { f, "<DIR>", "", "MA" });		
+				table.addFileRow(f);
 			}
 		}
 		
 		for(File f : root.listFiles()){
 			if(!f.isDirectory()){
-				mdl.addRow(new Object[] { f, "exe", "0B", "MA" });		
+				table.addFileRow(f);
 			}
 		}
-		
-		table.addMouseListener(new MouseListener(){
-			public void mouseClicked(MouseEvent arg0) {
-			}
-
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			public void mouseExited(MouseEvent arg0) {
-			}
-
-			public void mouseReleased(MouseEvent arg0) {
-			}
-			
-			public void mousePressed(MouseEvent me) {
-				JTable table =(JTable) me.getSource();
-		        Point p = me.getPoint();
-		        int row = table.rowAtPoint(p);
-		        if (row != -1 && me.getClickCount() == 2) {
-		            File f = (File)table.getValueAt(row, 0);
-		            System.out.println(f.getAbsolutePath());
-		        }
-			}
-		});
 		
 		JScrollPane pane = new JScrollPane(table);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
