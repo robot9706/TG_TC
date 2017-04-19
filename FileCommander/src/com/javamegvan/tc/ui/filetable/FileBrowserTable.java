@@ -150,46 +150,50 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	}
 
 	public void mousePressed(MouseEvent me) {
-		Point p = me.getPoint();
-		int row = super.rowAtPoint(p);
-		if (row != -1) {
-			if (me.getClickCount() % 2 == 0) {
-				FileRow f = (FileRow) super.getValueAt(row, 0);
-				if (f.TargetFile.isDirectory()) {
-					navigateTo(f.TargetFile);
-				} else {
-					try {
-						Desktop.getDesktop().open(f.TargetFile);
-					} catch (IOException e) {
-						// e.printStackTrace();
-						Utils.createMessageBox("Nem található társított alkalmazás!", "Megnyitás");
-					}
-				}
-			} else if (me.getClickCount() < 2) {
-				if (_doMouseSelection) {
-					if (_doRangeSelection) {
-						int to = Math.max(row, _lastSelectedItem);
-						for (int x = Math.min(row, _lastSelectedItem); x <= to; x++) {
-							updateSelection((FileRow) super.getValueAt(x, 0), (x == to));
-						}
+		
+		if (me.getButton() == MouseEvent.BUTTON1) {
+			Point p = me.getPoint();
+			int row = super.rowAtPoint(p);
+			if (row != -1) {
+				if (me.getClickCount() % 2 == 0) {
+					FileRow f = (FileRow) super.getValueAt(row, 0);
+					if (f.TargetFile.isDirectory()) {
+						navigateTo(f.TargetFile);
 					} else {
-						updateSelection((FileRow) super.getValueAt(row, 0), true);
+						try {
+							Desktop.getDesktop().open(f.TargetFile);
+						} catch (IOException e) {
+							// e.printStackTrace();
+							Utils.createMessageBox("Nem található társított alkalmazás!", "Megnyitás");
+						}
 					}
-				}
+				} else if (me.getClickCount() < 2) {
+					if (_doMouseSelection) {
+						if (_doRangeSelection) {
+							int to = Math.max(row, _lastSelectedItem);
+							for (int x = Math.min(row, _lastSelectedItem); x <= to; x++) {
+								updateSelection((FileRow) super.getValueAt(x, 0), (x == to));
+							}
+						} else {
+							updateSelection((FileRow) super.getValueAt(row, 0), true);
+						}
+					}
 
-				_lastSelectedItem = row;
-			}
-			if (me.getButton() == MouseEvent.BUTTON3) {
-				int r = super.rowAtPoint(me.getPoint());
-				if (r >= 0 && r < super.getRowCount()) {
-					super.setRowSelectionInterval(r, r);
-				} else {
-					super.clearSelection();
+					_lastSelectedItem = row;
 				}
-				updateSelection((FileRow) super.getValueAt(super.getSelectedRow(), 0), true);
 			}
 		}
+		if (me.getButton() == MouseEvent.BUTTON3) {
+			int r = super.rowAtPoint(me.getPoint());
+			if (r >= 0 && r < super.getRowCount()) {
+				super.setRowSelectionInterval(r, r);
+			} else {
+				super.clearSelection();
+			}
+			updateSelection((FileRow) super.getValueAt(super.getSelectedRow(), 0), true);
+		}
 	}
+
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
