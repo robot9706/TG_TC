@@ -24,5 +24,7 @@ public class FunctionCopy implements FunctionButton {
 	public void doFunction(MainFrame frame) {
 		//TODO: Implement
 		//frame.getFocusedFile()
+		//frame.BrowserA.getSelectedFiles(true/false);
+		//frame.BrowserB.getSelectedFiles(true/false);
 	}
 }

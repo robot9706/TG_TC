@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -209,5 +210,19 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 		}
 		
 		return null;
+	}
+	
+	public ArrayList<File> getSelectedFiles(boolean filesOnly){
+		ArrayList<File> files = new ArrayList<File>();
+		
+		for(FileRow s : _table.Selection){
+			if(filesOnly && s.TargetFile.isFile()){
+				files.add(s.TargetFile);
+			}else if(!filesOnly && s.TargetFile.isDirectory()){
+				files.add(s.TargetFile);
+			}
+		}
+		
+		return files;
 	}
 }

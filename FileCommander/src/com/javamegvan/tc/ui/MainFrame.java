@@ -34,8 +34,8 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 		new FunctionExit()	
 	};
 	
-	public FileBrowserComponent _browserA;
-	public FileBrowserComponent _browserB;
+	public FileBrowserComponent BrowserA;
+	public FileBrowserComponent BrowserB;
 
 	public MainFrame(){
 		super.setTitle("Andiamo A Comandare");
@@ -64,11 +64,11 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 				JPanel list = new JPanel();
 				list.setLayout(new GridLayout(1,2));
 				
-				list.add(_browserA = new FileBrowserComponent());
-				list.add(_browserB = new FileBrowserComponent());
+				list.add(BrowserA = new FileBrowserComponent());
+				list.add(BrowserB = new FileBrowserComponent());
 				
-				_browserA.navigateTo(new File("C:\\"));
-				_browserB.navigateTo(new File("C:\\"));
+				BrowserA.navigateTo(new File("C:\\"));
+				BrowserB.navigateTo(new File("C:\\"));
 				
 				c.weightx = 1.0;
 				c.fill = GridBagConstraints.BOTH;
@@ -118,10 +118,10 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 	}
 
 	public void toggleSideFocus(){
-		if(_browserA.hasFocus()){
-			_browserB.doFocus();
+		if(BrowserA.hasFocus()){
+			BrowserB.doFocus();
 		}else{
-			_browserA.doFocus();
+			BrowserA.doFocus();
 		}
 	}
 
@@ -146,10 +146,10 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 	}
 	
 	public File getFocusedFile(){
-		if (_browserA.hasFocus()){
-			return _browserA.getFocusedFile();
+		if (BrowserA.hasFocus()){
+			return BrowserA.getFocusedFile();
 		}
 		
-		return _browserB.getFocusedFile();
+		return BrowserB.getFocusedFile();
 	}
 }

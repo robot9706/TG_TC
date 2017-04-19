@@ -1,6 +1,7 @@
 package com.javamegvan.tc.ui.funcbtn;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import com.javamegvan.tc.ui.MainFrame;
 
@@ -24,5 +25,7 @@ public class FunctionDelete implements FunctionButton {
 	public void doFunction(MainFrame frame) {
 		//TODO: Implement
 		//frame.getFocusedFile()
+		//frame.BrowserA.getSelectedFiles(true/false);
+		//frame.BrowserB.getSelectedFiles(true/false);
 	}
 }
