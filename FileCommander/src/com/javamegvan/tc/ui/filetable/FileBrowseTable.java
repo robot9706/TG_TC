@@ -1,10 +1,12 @@
 package com.javamegvan.tc.ui.filetable;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListSelectionModel;
@@ -31,10 +33,11 @@ public class FileBrowseTable extends JTable implements MouseListener {
 
 		super.setShowGrid(false);
 		super.setRowSelectionAllowed(true);
+		super.addMouseListener(this);
+		
 		super.setDefaultRenderer(FileRow.class, new FileIconTableCellRenderer());
 		super.setDefaultRenderer(Long.class, new FileSizeTableCellRenderer());
 		super.setDefaultRenderer(String.class, new FileStringTableCellRenderer());
-		super.addMouseListener(this);
 		
 		//Column sizes
 		{
@@ -51,14 +54,6 @@ public class FileBrowseTable extends JTable implements MouseListener {
 			kit.setMaxWidth(150);
 		}
 	}
-	
-	/*public void addRootFile(File f){
-		addRowEntry(new FileRow(f, true));
-	}
-	
-	public void addFileRow(File f){
-		addRowEntry(new FileRow(f, false));
-	}*/
 	
 	public void navigateTo(File root){
 		for(int x = _model.getRowCount() - 1;x >= 0; x--){
@@ -90,6 +85,7 @@ public class FileBrowseTable extends JTable implements MouseListener {
 		if(row.TargetFile.isFile()){
 			ext = FileUtils.getFileExtension(row.TargetFile);
 		}
+		
 		_model.addRow(new Object[] { row, ext, (row.TargetFile.isDirectory() ? -1 : row.TargetFile.length()),
 				_dateFormat.format(row.TargetFile.lastModified()) });
 	}
@@ -97,10 +93,16 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	public void mousePressed(MouseEvent me) {
         Point p = me.getPoint();
         int row = super.rowAtPoint(p);
-        if (row != -1 && me.getClickCount() == 2) {
+        if (row != -1 && me.getClickCount() % 2 == 0) {
             FileRow f = (FileRow)super.getValueAt(row, 0);
             if(f.TargetFile.isDirectory()){
             	navigateTo(f.TargetFile);
+            }else{
+            	try {
+					Desktop.getDesktop().open(f.TargetFile);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         }        
 	}

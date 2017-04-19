@@ -20,6 +20,11 @@ import com.javamegvan.tc.ui.filetable.FileBrowseTable;
 import com.javamegvan.tc.ui.filetable.IconCache;
 
 public class MainFrame extends JFrame {
+	private static final long serialVersionUID = 5L;
+	
+	private FileBrowseTable _browseA;
+	private FileBrowseTable _browseB;
+
 	public MainFrame(){
 		super.setTitle("Vmi olasz cucc");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,8 +51,21 @@ public class MainFrame extends JFrame {
 				JPanel list = new JPanel();
 				list.setLayout(new GridLayout(1,2));
 				
-				list.add(createFileBrowseList());
-				list.add(createFileBrowseList());
+				/*FileBrowseTable table = new FileBrowseTable();
+				table.navigateTo(new File("C:\\"));
+
+				JScrollPane pane = new JScrollPane(table);
+				pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+				list.add(pane);*/
+
+				_browseA = new FileBrowseTable();
+				_browseA.navigateTo(new File("C:\\"));
+				
+				_browseB = new FileBrowseTable();
+				_browseB.navigateTo(new File("D:\\"));
+				
+				list.add(createFileBrowseList(_browseA));
+				list.add(createFileBrowseList(_browseB));
 					
 				c.weightx = 1.0;
 				c.fill = GridBagConstraints.BOTH;
@@ -89,12 +107,7 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
-	private JScrollPane createFileBrowseList(){
-		FileBrowseTable table = new FileBrowseTable();
-		
-		File root = new File("C:\\Users\\Bence\\Documents");
-		table.navigateTo(root);
-
+	private JScrollPane createFileBrowseList(FileBrowseTable table){
 		JScrollPane pane = new JScrollPane(table);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
 		return pane;
