@@ -30,11 +30,7 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 	private JLabel _pathInfo;
 	private JLabel _selectionInfo;
 	
-	private MainFrame _main;
-	
-	public FileBrowserComponent(MainFrame main){
-		_main = main;
-		
+	public FileBrowserComponent(){
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		//Top row
@@ -206,8 +202,12 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 	public void doFocus(){
 		_table.requestFocus();
 	}
-
-	public void onSwitchSide() {
-		_main.toggleSideFocus();
+	
+	public File getFocusedFile(){
+		if(_table.getSelectedRow() > -1){
+			return ((FileRow)_table.getValueAt(_table.getSelectedRow(), 0)).TargetFile;
+		}
+		
+		return null;
 	}
 }

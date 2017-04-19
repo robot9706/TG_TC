@@ -1,11 +1,14 @@
 package com.javamegvan.tc.ui;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -16,20 +19,32 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import com.javamegvan.tc.ui.filetable.IconCache;
+import com.javamegvan.tc.ui.funcbtn.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements KeyEventDispatcher {
 	private static final long serialVersionUID = 5L;
 	
-	private FileBrowserComponent _browserA;
-	private FileBrowserComponent _browserB;
+	private FunctionButton[] _functionButtons = new FunctionButton[]{
+		new FunctionInspect(),
+		new FunctionEdit(),
+		new FunctionCopy(),
+		new FunctionMove(),
+		new FunctionNewFolder(),
+		new FunctionDelete(),
+		new FunctionExit()	
+	};
+	
+	public FileBrowserComponent _browserA;
+	public FileBrowserComponent _browserB;
 
 	public MainFrame(){
 		super.setTitle("Andiamo A Comandare");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setSize(1280, 720);
+		
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
 
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		Utils.centerJForm(this);
 		
 		IconCache.Load();
 		
@@ -49,8 +64,8 @@ public class MainFrame extends JFrame {
 				JPanel list = new JPanel();
 				list.setLayout(new GridLayout(1,2));
 				
-				list.add(_browserA = new FileBrowserComponent(this));
-				list.add(_browserB = new FileBrowserComponent(this));
+				list.add(_browserA = new FileBrowserComponent());
+				list.add(_browserB = new FileBrowserComponent());
 				
 				_browserA.navigateTo(new File("C:\\"));
 				_browserB.navigateTo(new File("C:\\"));
@@ -68,9 +83,16 @@ public class MainFrame extends JFrame {
 				JPanel pl = new JPanel();
 				pl.setLayout(new GridLayout(1,7));
 				
-				String[] buttons = new String[] { "Nézegetõ", "Szerkesztés", "Másolás", "Mozgatás", "Új mappa", "Törlés", "Kilépés" };
-				for(int x = 0;x<7;x++){
-					pl.add(new JButton(buttons[x]));
+				final MainFrame frame = this;
+				for(int x = 0;x<_functionButtons.length;x++){
+					JButton btn = new JButton(_functionButtons[x].getTextShortcut() + " " + _functionButtons[x].getName());
+					final int index = x;
+					btn.addActionListener(new ActionListener(){
+						public void actionPerformed(ActionEvent e) {
+							_functionButtons[index].doFunction(frame);
+						}
+					});
+					pl.add(btn);
 				}
 				
 				c.fill = GridBagConstraints.HORIZONTAL;
@@ -101,5 +123,33 @@ public class MainFrame extends JFrame {
 		}else{
 			_browserA.doFocus();
 		}
+	}
+
+	public boolean dispatchKeyEvent(KeyEvent e) {
+		if(e.getID() == KeyEvent.KEY_PRESSED){
+			if(e.getKeyCode() == KeyEvent.VK_TAB){
+				e.consume();
+				toggleSideFocus();
+				return true;
+			}
+			
+			for(int x = 0;x<_functionButtons.length;x++){
+				if(e.getKeyCode() == _functionButtons[x].getKeyShortcut() && e.getModifiers() == _functionButtons[x].getKeyShortcutModifier()){
+					e.consume();
+					_functionButtons[x].doFunction(this);
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public File getFocusedFile(){
+		if (_browserA.hasFocus()){
+			return _browserA.getFocusedFile();
+		}
+		
+		return _browserB.getFocusedFile();
 	}
 }

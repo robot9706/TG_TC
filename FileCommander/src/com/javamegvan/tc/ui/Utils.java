@@ -1,6 +1,9 @@
 package com.javamegvan.tc.ui;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.JOptionPane;
@@ -74,5 +77,10 @@ public class Utils {
 		return new Color(Math.min((int)(original.getRed() * brightness), 255),
 						 Math.min((int)(original.getGreen() * brightness), 255),
 						 Math.min((int)(original.getBlue() * brightness), 255));
+	}
+	
+	public static void centerJForm(Component f){
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		f.setLocation((dim.width / 2)- (f.getSize().width / 2), (dim.height / 2) - (f.getSize().height / 2));
 	}
 }

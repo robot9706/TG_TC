@@ -184,7 +184,9 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			updateSelection((FileRow)super.getValueAt(super.getSelectedRow(), 0), true);
+			if(super.getSelectedRow() > -1){
+				updateSelection((FileRow)super.getValueAt(super.getSelectedRow(), 0), true);
+			}
 		}else if(e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_SHIFT){
 			_doMouseSelection = true;
 			_doRangeSelection = (e.getKeyCode() == KeyEvent.VK_SHIFT);
@@ -195,12 +197,6 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 		if(e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_SHIFT){
 			_doMouseSelection = false;
 			_doRangeSelection = false;
-		}
-		else if(e.getKeyCode() == KeyEvent.VK_TAB){
-			e.consume();
-			if(_eventListener != null){
-				_eventListener.onSwitchSide();
-			}
 		}
 	}
 	
