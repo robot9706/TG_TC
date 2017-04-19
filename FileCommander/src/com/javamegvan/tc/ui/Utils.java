@@ -8,17 +8,37 @@ public class Utils {
 	public static String getFileExtension(File f){
 		String ext = "";
 		if(f.isFile()){
-			String[] parts = f.getName().split("\\.");
+			String name = f.getName();
+			if(name.charAt(0) == '.'){
+				name = name.substring(1);
+			}
+			
+			String[] parts = name.split("\\.");
 			if(parts.length > 1){
 				ext = parts[parts.length - 1];
 			}
 		}
+		
+		if(ext.length() == 0){
+			ext = "-";
+		}
+		
 		return ext;
 	}
 	
 	public static String getFileNameWithoutExtension(File f){
 		String name = f.getName();
+		if(name == null || name.length() == 0){
+			name = f.getPath();
+			if(name.endsWith("/") || name.endsWith("\\")){
+				name = name.substring(0, name.length() - 1);
+			}
+		}
 		if(f.isFile()){
+			if(name.charAt(0) == '.'){
+				name = name.substring(1);
+			}
+			
 			if(name.indexOf('.') == -1){
 				return name;
 			}
@@ -31,6 +51,16 @@ public class Utils {
 			}
 		}
 		return name;
+	}
+	
+	public static String getDriveLetter(File f){
+		do{
+			if(f.getParentFile() == null)
+				return f.getPath();
+			f = f.getParentFile();
+		}while(f.getParentFile() != null);
+		
+		return f.getPath();
 	}
 	
 	public static void createMessageBox(String message, String title){

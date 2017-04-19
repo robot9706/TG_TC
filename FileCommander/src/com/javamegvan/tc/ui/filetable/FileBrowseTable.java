@@ -26,6 +26,10 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	
 	private FileTableModel _model = new FileTableModel();
 	
+	private PathChangedListener _pathChangeEvent;
+	
+	public File CurrentFolder;
+	
 	public FileBrowseTable(){
 		super.setModel(_model);
 		super.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
@@ -57,7 +61,16 @@ public class FileBrowseTable extends JTable implements MouseListener {
 		}
 	}
 	
+	public void setPathChangedListener(PathChangedListener l){
+		_pathChangeEvent = l;
+	}
+	
 	public void navigateTo(File root){
+		CurrentFolder = root;
+		if(_pathChangeEvent != null){
+			_pathChangeEvent.onPathChange(this);
+		}
+		
 		for(int x = _model.getRowCount() - 1;x >= 0; x--){
 			_model.removeRow(x);
 		}
