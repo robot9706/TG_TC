@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
 	private FileBrowserComponent _browserB;
 
 	public MainFrame(){
-		super.setTitle("Vmi olasz cucc");
+		super.setTitle("Andiamo A Comandare");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setSize(1280, 720);
 		
