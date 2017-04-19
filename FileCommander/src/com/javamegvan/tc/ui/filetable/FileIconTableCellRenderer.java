@@ -43,18 +43,8 @@ public class FileIconTableCellRenderer extends DefaultTableCellRenderer {
 		l.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		FileBrowserTable bTable = (FileBrowserTable)table;
-		if(bTable.Selection.contains(file)){
-			l.setForeground(FileBrowserTable.TextSelectedColor);
-		}else{
-			l.setForeground(FileBrowserTable.TextColor);
-		}
+		bTable.setLabelColors(l, table.getSelectedRow() == row, bTable.Selection.contains(file));
 		
-		if (table.getSelectedRow() == row) {
-			l.setBackground(FileBrowserTable.BackgroundSelectionColor);
-		} else {
-			l.setBackground(FileBrowserTable.BackgroundNonSelectionColor);
-		}
-
 		return l;
 	}
 }

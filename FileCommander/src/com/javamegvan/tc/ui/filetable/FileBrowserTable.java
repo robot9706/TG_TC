@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
@@ -23,7 +24,8 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	
 	public static Color TextSelectedColor = Color.RED;
 	public static Color TextColor = Color.BLACK;
-	public static Color BackgroundSelectionColor = new Color(135, 206, 250);;
+	public static Color BackgroundSelectionColor = Color.LIGHT_GRAY;
+	public static Color BackgroundHoverSelectionColor = new Color(135, 206, 250);
 	public static Color BackgroundNonSelectionColor = Color.WHITE;
 	
 	private static SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy. dd. MM.  HH:mm:ss");
@@ -146,6 +148,16 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 			super.invalidate();
 			super.validate();
 			super.repaint();
+		}
+	}
+	
+	public void setLabelColors(JLabel lbl, boolean hoverSelection, boolean itemSelected){
+		lbl.setForeground(itemSelected ? TextSelectedColor : TextColor);
+		
+		if(hoverSelection){
+			lbl.setBackground(BackgroundHoverSelectionColor);
+		}else{
+			lbl.setBackground(itemSelected ? BackgroundSelectionColor : BackgroundNonSelectionColor);
 		}
 	}
 	

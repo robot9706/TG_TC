@@ -20,17 +20,7 @@ public class FileStringTableCellRenderer extends DefaultTableCellRenderer {
 		l.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		FileBrowserTable bTable = (FileBrowserTable)table;
-		if(bTable.Selection.contains((FileRow)table.getModel().getValueAt(row, 0))){
-			l.setForeground(FileBrowserTable.TextSelectedColor);
-		}else{
-			l.setForeground(FileBrowserTable.TextColor);
-		}
-		
-		if (table.getSelectedRow() == row) {
-			l.setBackground(FileBrowserTable.BackgroundSelectionColor);
-		} else {
-			l.setBackground(FileBrowserTable.BackgroundNonSelectionColor);
-		}
+		bTable.setLabelColors(l, table.getSelectedRow() == row, bTable.Selection.contains((FileRow)table.getModel().getValueAt(row, 0)));
 
 		return l;
 	}
