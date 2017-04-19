@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
@@ -21,7 +22,8 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	
 	public FileBrowseTable(){
 		super.setModel(_model);
-		
+		super.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+
 		super.setShowGrid(false);
 		super.setRowSelectionAllowed(true);
 		super.setDefaultRenderer(FileRow.class, new FileIconTableCellRenderer());
@@ -54,7 +56,14 @@ public class FileBrowseTable extends JTable implements MouseListener {
 	}
 	
 	private void addRowEntry(FileRow row){
-		_model.addRow(new Object[] { row, "", row.TargetFile.length(), "" });
+		String ext = "-";
+		if(row.TargetFile.isFile()){
+			String[] parts = row.TargetFile.getName().split("\\.");
+			if(parts.length > 1){
+				ext = parts[parts.length - 1];
+			}
+		}
+		_model.addRow(new Object[] { row, ext, row.TargetFile.length(), "" });
 	}
 
 	public void mousePressed(MouseEvent me) {
@@ -62,8 +71,8 @@ public class FileBrowseTable extends JTable implements MouseListener {
         int row = super.rowAtPoint(p);
         if (row != -1 && me.getClickCount() == 2) {
             FileRow f = (FileRow)super.getValueAt(row, 0);
-            System.out.println(f.TargetFile.getAbsolutePath());
-        }
+            
+        }        
 	}
 	
 	public void mouseClicked(MouseEvent e) {

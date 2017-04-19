@@ -20,7 +20,7 @@ public class FileIconTableCellRenderer extends DefaultTableCellRenderer {
 		l.setOpaque(true);
 		l.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		if (hasFocus) {
+		if (table.getSelectedRow() == row) {
 			l.setBackground(FileBrowseTable.BackgroundSelectionColor);
 			l.setForeground(FileBrowseTable.TextSelectionColor);
 		} else {
