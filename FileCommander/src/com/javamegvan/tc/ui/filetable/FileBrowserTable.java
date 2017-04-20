@@ -226,10 +226,14 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	}
 
 	public void focusLost(FocusEvent arg0) {
+		super.getTableHeader().setBackground(null);
+		
 		redrawComponent();
 	}
 
 	public void focusGained(FocusEvent arg0) {
+		super.getTableHeader().setBackground(_backgroundSelectionColor);
+		
 		redrawComponent();
 	}
 

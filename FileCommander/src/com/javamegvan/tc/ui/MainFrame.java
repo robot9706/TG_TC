@@ -152,4 +152,12 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 		
 		return BrowserB.getFocusedFile();
 	}
+	
+	public File getFocusedFolder(){
+		if (BrowserA.hasFocus()){
+			return BrowserA.getCurrentFolder();
+		}
+		
+		return BrowserB.getCurrentFolder();
+	}
 }

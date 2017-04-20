@@ -1,7 +1,6 @@
 package com.javamegvan.tc.ui.funcbtn;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
 
 import com.javamegvan.tc.ui.MainFrame;
 
