@@ -212,6 +212,10 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 		return null;
 	}
 	
+	public File getCurrentFolder(){
+		return _table.CurrentFolder;
+	}
+	
 	public ArrayList<File> getSelectedFiles(boolean filesOnly){
 		ArrayList<File> files = new ArrayList<File>();
 		

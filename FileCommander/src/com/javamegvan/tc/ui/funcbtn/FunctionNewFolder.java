@@ -6,6 +6,7 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import com.javamegvan.tc.ui.MainFrame;
+import com.javamegvan.tc.ui.Utils;
 
 public class FunctionNewFolder implements FunctionButton {
 	public int getKeyShortcut() {
@@ -25,6 +26,7 @@ public class FunctionNewFolder implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
+<<<<<<< HEAD
 
 		String path = frame.getFocusedBrowser()._table.CurrentFolder.getPath();
 		path = new StringBuffer(path).insert(path.length(), "\\").toString();
@@ -42,5 +44,13 @@ public class FunctionNewFolder implements FunctionButton {
 			}
 		}
 		frame.getFocusedBrowser().navigateTo(frame.getFocusedBrowser()._table.CurrentFolder);
+=======
+		Utils.createMessageBox(frame.getFocusedFolder().getPath(), "asd");
+		
+		//TODO: Implement
+		//frame.getFocusedFile()
+		//frame.BrowserA.getSelectedFiles(true/false);
+		//frame.BrowserB.getSelectedFiles(true/false);
+>>>>>>> origin/master
 	}
 }
