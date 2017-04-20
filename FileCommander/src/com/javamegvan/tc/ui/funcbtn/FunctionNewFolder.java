@@ -5,8 +5,8 @@ import java.io.File;
 
 import javax.swing.JOptionPane;
 
+import com.javamegvan.tc.ui.FileBrowserComponent;
 import com.javamegvan.tc.ui.MainFrame;
-import com.javamegvan.tc.ui.Utils;
 
 public class FunctionNewFolder implements FunctionButton {
 	public int getKeyShortcut() {
@@ -26,25 +26,23 @@ public class FunctionNewFolder implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
-		String path = frame.getFocusedFolder().getPath();
-		path = new StringBuffer(path).insert(path.length(), "\\").toString();
-
+		
+		FileBrowserComponent cp = frame.getFocusedBrowser();
+		
+		System.out.println(cp.getCurrentFolder());
+		
 		String response = JOptionPane.showInputDialog("Az új mappa neve?");
 		if (!(response == null || response.equals(""))) {
-			File newdir = new File(path + response);
+			 File newdir = new File(cp.getCurrentFolder(), response);
 			if (newdir.exists()) {
 				JOptionPane.showMessageDialog(null, "Ilyen nevû már létezik!", "Létezik", JOptionPane.PLAIN_MESSAGE,
 						null);
-				doFunction(frame);
-
 			} else {
 				newdir.mkdir();
 			}
 		}
-		frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
-
-		Utils.createMessageBox(frame.getFocusedFolder().getPath(), "asd");
-		
+		  cp.navigateTo(cp.getCurrentFolder());
+	
 		//TODO: Implement
 		//frame.getFocusedFile()
 		//frame.BrowserA.getSelectedFiles(true/false);
