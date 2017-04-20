@@ -28,7 +28,7 @@ public class FunctionInspect implements FunctionButton {
 		File file = frame.getFocusedFile();
 		if(file != null){
 			if(file.exists() && file.isFile()){
-				new FileInspectorDialog(frame, file, true).setVisible(true);
+				new FileInspectorDialog(file, false);
 			}else{
 				Utils.createMessageBox("Nem fájl van kiválasztva!", "Nézõke");
 			}

@@ -83,4 +83,9 @@ public class Utils {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		f.setLocation((dim.width / 2)- (f.getSize().width / 2), (dim.height / 2) - (f.getSize().height / 2));
 	}
+	
+	public static boolean createYesNoDialog(String question, String title){
+		return (JOptionPane.showOptionDialog(null, question, title, JOptionPane.YES_NO_OPTION,
+				JOptionPane.PLAIN_MESSAGE, null, new String[] { "Igen", "Nem" }, "Nem") == JOptionPane.YES_OPTION);
+	}
 }
