@@ -34,7 +34,8 @@ public class FunctionDelete implements FunctionButton {
 				for (File f : frame.getFocusedBrowser().getSelectedFiles(false)) {
 					deleteAll(f);
 				}
-				frame.getFocusedBrowser().navigateTo(frame.getFocusedBrowser()._table.CurrentFolder);
+				frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
+				
 			}
 		} else {
 
@@ -48,7 +49,7 @@ public class FunctionDelete implements FunctionButton {
 					deleteAll(focused);
 				}
 
-				frame.getFocusedBrowser().navigateTo(frame.getFocusedBrowser()._table.CurrentFolder);
+				frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
 			} else {
 				JOptionPane.showMessageDialog(null, "Nincs fájl kijelölve!", null, JOptionPane.PLAIN_MESSAGE);
 			}

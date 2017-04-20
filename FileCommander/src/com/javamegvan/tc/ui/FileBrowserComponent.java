@@ -24,7 +24,7 @@ import com.javamegvan.tc.ui.filetable.FileBrowserEventListener;
 public class FileBrowserComponent extends JPanel implements ActionListener, FileBrowserEventListener {
 	private static final long serialVersionUID = -4963834230107742761L;
 
-	public FileBrowserTable _table;
+	private FileBrowserTable _table;
    
 	private JComboBox<File> _driveSelector;
 	private JLabel _driveInfo;

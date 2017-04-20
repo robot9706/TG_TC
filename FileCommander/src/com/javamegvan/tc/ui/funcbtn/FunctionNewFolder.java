@@ -26,7 +26,7 @@ public class FunctionNewFolder implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
-		String path = frame.getFocusedBrowser()._table.CurrentFolder.getPath();
+		String path = frame.getFocusedFolder().getPath();
 		path = new StringBuffer(path).insert(path.length(), "\\").toString();
 
 		String response = JOptionPane.showInputDialog("Az új mappa neve?");
@@ -41,7 +41,7 @@ public class FunctionNewFolder implements FunctionButton {
 				newdir.mkdir();
 			}
 		}
-		frame.getFocusedBrowser().navigateTo(frame.getFocusedBrowser()._table.CurrentFolder);
+		frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
 
 		Utils.createMessageBox(frame.getFocusedFolder().getPath(), "asd");
 		
