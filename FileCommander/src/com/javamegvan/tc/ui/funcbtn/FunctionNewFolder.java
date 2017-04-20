@@ -33,7 +33,7 @@ public class FunctionNewFolder implements FunctionButton {
 		if (!(response == null || response.equals(""))) {
 			File newdir = new File(path + response);
 			if (newdir.exists()) {
-				JOptionPane.showMessageDialog(null, "Ilyen nevû már létezik!", "Létezik", JOptionPane.ERROR_MESSAGE,
+				JOptionPane.showMessageDialog(null, "Ilyen nevû már létezik!", "Létezik", JOptionPane.PLAIN_MESSAGE,
 						null);
 				doFunction(frame);
 
