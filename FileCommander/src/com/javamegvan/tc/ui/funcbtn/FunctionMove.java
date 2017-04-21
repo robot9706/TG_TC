@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.javamegvan.tc.ui.MainFrame;
+import com.javamegvan.tc.ui.Utils;
 
 public class FunctionMove implements FunctionButton {
 	public int getKeyShortcut() {
@@ -30,7 +31,7 @@ public class FunctionMove implements FunctionButton {
 	public void doFunction(MainFrame frame) {
 
 		File source = new File(frame.getFocusedFile().getPath());
-		File dest = new File(frame.getunFocusedBrowser().getCurrentFolder().getPath(),
+		File dest = new File(frame.getNonFocusedBrowser().getCurrentFolder().getPath(),
 				frame.getFocusedFile().getName());
 
 		try {
@@ -39,18 +40,18 @@ public class FunctionMove implements FunctionButton {
 				deleteAll(source);
 			} else {
 				for (File f : frame.getFocusedBrowser().getSelectedFiles(false)) {
-					File d = new File(frame.getunFocusedBrowser().getCurrentFolder().getPath(), f.getName());
+					File d = new File(frame.getNonFocusedBrowser().getCurrentFolder().getPath(), f.getName());
 					move(f, d);
 					deleteAll(f);
 				}
 			}
 		} catch (IOException e) {
+			Utils.createMessageBox("Hiba az áthelyezés közben: " + e.getMessage(), "Hiba");
 			e.printStackTrace();
 		}
 
 		frame.BrowserB.navigateTo(frame.BrowserB.getCurrentFolder());
 		frame.BrowserA.navigateTo(frame.BrowserA.getCurrentFolder());
-
 	}
 
 	public void move(File src, File dest) throws IOException {

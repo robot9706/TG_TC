@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.swing.JFrame;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
@@ -41,7 +40,7 @@ public class FunctionCopy implements FunctionButton {
 		pB.setProgress(0);
 		
 		File source = new File(frame.getFocusedFile().getPath());
-		File dest = new File(frame.getunFocusedBrowser().getCurrentFolder().getPath(),
+		File dest = new File(frame.getNonFocusedBrowser().getCurrentFolder().getPath(),
 				frame.getFocusedFile().getName());
 
 		try {
@@ -52,14 +51,14 @@ public class FunctionCopy implements FunctionButton {
 					@Override
 					protected Object doInBackground() throws Exception {
 						copy(source, dest);
-						frame.getunFocusedBrowser().navigateTo(frame.getunFocusedBrowser().getCurrentFolder());
+						frame.getNonFocusedBrowser().navigateTo(frame.getNonFocusedBrowser().getCurrentFolder());
 						return null;
 					}
 				};
 				worker.execute();
 			} else {
 				for (File f : frame.getFocusedBrowser().getSelectedFiles(false)) {
-					File d = new File(frame.getunFocusedBrowser().getCurrentFolder().getPath(), f.getName());
+					File d = new File(frame.getNonFocusedBrowser().getCurrentFolder().getPath(), f.getName());
 					copy(f, d);
 				}
 			}

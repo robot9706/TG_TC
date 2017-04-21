@@ -3,9 +3,8 @@ package com.javamegvan.tc.ui.funcbtn;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-import javax.swing.JOptionPane;
-
 import com.javamegvan.tc.ui.MainFrame;
+import com.javamegvan.tc.ui.Utils;
 
 public class FunctionDelete implements FunctionButton {
 	public int getKeyShortcut() {
@@ -25,33 +24,24 @@ public class FunctionDelete implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
-
 		if (!(frame.getFocusedBrowser().getSelectedFiles(false).isEmpty())) {
-			Object[] options = { "Yes", "No" };
-			int result = JOptionPane.showOptionDialog(null, "Biztos benne?", null, JOptionPane.YES_NO_OPTION,
-					JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
-			if (result == JOptionPane.YES_OPTION) {
+			if (Utils.createYesNoDialog("Biztos benne?", "Törlés")) {
 				for (File f : frame.getFocusedBrowser().getSelectedFiles(false)) {
 					deleteAll(f);
 				}
 				frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
-				
 			}
 		} else {
 
 			if (!(frame.getFocusedFile() == null)) {
 				File focused = frame.getFocusedFile();
-				Object[] options = { "Yes", "No" };
-				int result = JOptionPane.showOptionDialog(null, "Biztos benne?", null, JOptionPane.YES_NO_OPTION,
-						JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
-
-				if (result == JOptionPane.YES_OPTION) {
+				if (Utils.createYesNoDialog("Biztos benne?", "Törlés")) {
 					deleteAll(focused);
 				}
 
 				frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
 			} else {
-				JOptionPane.showMessageDialog(null, "Nincs fájl kijelölve!", null, JOptionPane.PLAIN_MESSAGE);
+				Utils.createMessageBox("Nincs fájl kijelölve!", "Hiba");
 			}
 		}
 	}

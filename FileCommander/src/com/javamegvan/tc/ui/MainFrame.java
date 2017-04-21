@@ -17,11 +17,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 import com.javamegvan.tc.ui.filetable.IconCache;
 import com.javamegvan.tc.ui.funcbtn.*;
 
-public class MainFrame extends JFrame implements KeyEventDispatcher {
+public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListener {
 	private static final long serialVersionUID = 5L;
 	
 	private FunctionButton[] _functionButtons = new FunctionButton[]{
@@ -36,6 +37,10 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 	
 	public FileBrowserComponent BrowserA;
 	public FileBrowserComponent BrowserB;
+	
+	private JMenuItem _exitButton;
+	private JMenuItem _createZipButton;
+	private JMenuItem _unZipButton;
 
 	public MainFrame(){
 		super.setTitle("Andiamo A Comandare");
@@ -111,7 +116,15 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 	        	
 			JMenu m = new JMenu("Fájl");
 			j.add(m);
-			m.add(new JMenuItem("Kilépés"));
+			
+			m.add(_createZipButton = new JMenuItem("Fájlok tömörítése"));
+			m.add(_unZipButton = new JMenuItem("Kicsomagolás"));
+			m.add(new JSeparator());
+			m.add(_exitButton = new JMenuItem("Kilépés"));
+			
+			_createZipButton.addActionListener(this);
+			_unZipButton.addActionListener(this);
+			_exitButton.addActionListener(this);
 			
 			super.setJMenuBar(j);	
 		}
@@ -160,7 +173,7 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 			return BrowserB;
 	}
 	
-	public FileBrowserComponent getunFocusedBrowser(){	
+	public FileBrowserComponent getNonFocusedBrowser(){	
 		if(BrowserA.hasFocus()){
 			return BrowserB;
 		}
@@ -174,5 +187,15 @@ public class MainFrame extends JFrame implements KeyEventDispatcher {
 		
 		return BrowserB.getCurrentFolder();
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == _exitButton){
+			System.exit(0);
+		}else if(e.getSource() == _createZipButton){
+			ZipTools.makeZip(this);
+		}else if(e.getSource() == _unZipButton){
+			ZipTools.uncompressZip(this);
+		}
 	}
 }

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import com.javamegvan.tc.ui.FileBrowserComponent;
 import com.javamegvan.tc.ui.MainFrame;
+import com.javamegvan.tc.ui.Utils;
 
 public class FunctionNewFolder implements FunctionButton {
 	public int getKeyShortcut() {
@@ -26,26 +27,21 @@ public class FunctionNewFolder implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
-		
 		FileBrowserComponent cp = frame.getFocusedBrowser();
-		
-		System.out.println(cp.getCurrentFolder());
-		
+
 		String response = JOptionPane.showInputDialog("Az új mappa neve?");
-		if (!(response == null || response.equals(""))) {
+		if (response != null && response.length() > 0) {
 			 File newdir = new File(cp.getCurrentFolder(), response);
 			if (newdir.exists()) {
-				JOptionPane.showMessageDialog(null, "Ilyen nevû már létezik!", "Létezik", JOptionPane.PLAIN_MESSAGE,
-						null);
+				Utils.createMessageBox("Ilyan nevû mappa már létezik!", "Hiba");
 			} else {
-				newdir.mkdir();
+				if(!newdir.mkdir()){
+					Utils.createMessageBox("Hiba a mappa létrehozása közben!", "Hiba");
+				}
 			}
+		}else{
+			Utils.createMessageBox("Érvénytelen név!", "Hiba");
 		}
-		  cp.navigateTo(cp.getCurrentFolder());
-	
-		//TODO: Implement
-		//frame.getFocusedFile()
-		//frame.BrowserA.getSelectedFiles(true/false);
-		//frame.BrowserB.getSelectedFiles(true/false);
+		cp.navigateTo(cp.getCurrentFolder());
 	}
 }
