@@ -89,7 +89,7 @@ public class FileInspectorDialog extends JFrame implements ActionListener, Docum
 		}catch(Exception ex){
 			ex.printStackTrace();
 			
-			Utils.createMessageBox("Hiba a fájl megnyitása közben: \"" + ex.getMessage() + "\"", "Hiba!");
+			Utils.createMessageBox(this, "Hiba a fájl megnyitása közben: \"" + ex.getMessage() + "\"", "Hiba!");
 			close();
 			return;
 		}
@@ -112,7 +112,7 @@ public class FileInspectorDialog extends JFrame implements ActionListener, Docum
 			
 			_text.setLineWrap(check.isSelected());
 		}else if(e.getSource() == _menuClose){
-			close();
+			super.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		}else if(e.getSource() == _menuSave && _file != null && _modified){
 			saveFile();
 		}
@@ -131,7 +131,7 @@ public class FileInspectorDialog extends JFrame implements ActionListener, Docum
 		}catch(Exception ex){
 			ex.printStackTrace();
 			
-			Utils.createMessageBox("Hiba a fájl mentése közben: \"" + ex.getMessage() + "\"", "Hiba!");
+			Utils.createMessageBox(this, "Hiba a fájl mentése közben: \"" + ex.getMessage() + "\"", "Hiba!");
 		}
 	}
 	
@@ -154,7 +154,7 @@ public class FileInspectorDialog extends JFrame implements ActionListener, Docum
 
 	public void windowClosing(WindowEvent e) {
 		if(_file != null && _modified){
-			if (Utils.createYesNoDialog("Menti a változtatásokat?", "Mentés?")) {
+			if (Utils.createYesNoDialog(this, "Menti a változtatásokat?", "Mentés?")) {
 				saveFile();
 			}
 		}

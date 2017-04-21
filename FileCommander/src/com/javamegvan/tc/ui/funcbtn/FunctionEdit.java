@@ -30,10 +30,10 @@ public class FunctionEdit implements FunctionButton {
 			if(file.exists() && file.isFile()){
 				new FileInspectorDialog(file, true);
 			}else{
-				Utils.createMessageBox("Nem fájl van kiválasztva!", "Szerkesztés");
+				Utils.createMessageBox(frame, "Nem fájl van kiválasztva!", "Szerkesztés");
 			}
 		}else{
-			Utils.createMessageBox("Nincs fájl kiválasztva!", "Szerkesztés");
+			Utils.createMessageBox(frame, "Nincs fájl kiválasztva!", "Szerkesztés");
 		}
 	}
 }

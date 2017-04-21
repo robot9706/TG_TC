@@ -75,7 +75,7 @@ public abstract class Task implements Runnable {
 				_dialog.setVisible(false);
 				_dialog.dispose();
 				
-				Utils.createMessageBox("Sikertelen mûvelet: " + ex.getMessage(), "Hiba");
+				Utils.createMessageBox(_dialog, "Sikertelen mûvelet: " + ex.getMessage(), "Hiba");
 			}
 		});
 	}

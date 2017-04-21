@@ -2,6 +2,7 @@ package com.javamegvan.tc.ui.funcbtn;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 import com.javamegvan.tc.ui.FileBrowserComponent;
 import com.javamegvan.tc.ui.MainFrame;
@@ -26,26 +27,21 @@ public class FunctionDelete implements FunctionButton {
 
 	public void doFunction(MainFrame frame) {
 		FileBrowserComponent focus = frame.getFocusedBrowser();
+		ArrayList<File> files = focus.getAllSelectedFiles();
+		if(files.size() == 0 && focus.getFocusedFile() != null){
+			files.add(focus.getFocusedFile());
+		}
 		
-		if (!focus.getSelectedFiles(false).isEmpty()) {
-			if (Utils.createYesNoDialog("Biztos benne?", "Törlés")) {
-				for (File f : focus.getSelectedFiles(false)) {
+		if(Utils.createYesNoDialog(frame, "Biztosan törölni akar " + String.valueOf(files.size()) + " fájlt?", "Biztos?")){
+			for(File f : files){
+				if(f.isFile()){
+					f.delete();
+				}else if(f.isDirectory()){
 					deleteAll(f);
 				}
-				
-				frame.smartRefreshFileEntries(focus);
-			}
-		}else{
-			if (!(focus.getFocusedFile() == null)) {
-				File focused = focus.getFocusedFile();
-				if (Utils.createYesNoDialog("Biztos benne?", "Törlés")) {
-					deleteAll(focused);
-				}
-
-				frame.smartRefreshFileEntries(focus);
-			} else {
-				Utils.createMessageBox("Nincs fájl kijelölve!", "Hiba");
-			}
+			}	
+			
+			frame.smartRefreshFileEntries(focus);
 		}
 	}
 

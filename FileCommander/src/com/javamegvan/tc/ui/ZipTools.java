@@ -11,12 +11,13 @@ import com.javamegvan.tc.task.UnzipTask;
 public class ZipTools {
 	public static void makeZip(MainFrame frame){
 		FileBrowserComponent c = frame.getFocusedBrowser();
+		FileBrowserComponent nonFocused = frame.getNonFocusedBrowser();
 		
 		ArrayList<File> files = c.getAllSelectedFiles();
 		ArrayList<File> filesToCompress = collectFiles(files);
 		
 		if(files.size() == 0 || filesToCompress.size() == 0){
-			Utils.createMessageBox("Nincs mit tömöríteni!", "Tömörítés");
+			Utils.createMessageBox(frame, "Nincs mit tömöríteni!", "Tömörítés");
 			return;
 		}
 		
@@ -28,13 +29,13 @@ public class ZipTools {
 			
 			File targetZip = new File(c.getCurrentFolder(), zipName);
 			if(targetZip.exists()){
-				Utils.createMessageBox("A cél fájl már létezik. \"" + targetZip.getPath() + "\"", "Hiba");
+				Utils.createMessageBox(frame, "A cél fájl már létezik. \"" + targetZip.getPath() + "\"", "Hiba");
 				return;
 			}
 			
-			if(Utils.createYesNoDialog("Szeretne " + String.valueOf(filesToCompress.size()) + " fájlt tömöríteni a következõ fájlba: \"" +
+			if(Utils.createYesNoDialog(frame, "Szeretne " + String.valueOf(filesToCompress.size()) + " fájlt tömöríteni a következõ fájlba: \"" +
 					targetZip.getPath() + "\"?", "Tömörítés")) {
-				ProgressBarDialog pd = new ProgressBarDialog(new CreateZipTask(targetZip, c.getCurrentFolder(), filesToCompress), frame);
+				ProgressBarDialog pd = new ProgressBarDialog(new CreateZipTask(targetZip, nonFocused.getCurrentFolder(), filesToCompress), frame);
 				pd.showAndExecuteTask();
 			}
 		}
@@ -72,23 +73,23 @@ public class ZipTools {
 		File selected = frame.getFocusedFile();
 		
 		if(selected == null){
-			Utils.createMessageBox("Nincs fájl kiválasztva!", "Zip kicsomagolás");
+			Utils.createMessageBox(frame, "Nincs fájl kiválasztva!", "Zip kicsomagolás");
 			return;
 		}
 		
 		if(!selected.isFile()){
-			Utils.createMessageBox("Csak zip file csomagolható ki!", "Zip kicsomagolás");
+			Utils.createMessageBox(frame, "Csak zip file csomagolható ki!", "Zip kicsomagolás");
 			return;
 		}
 		
 		if(!Utils.getFileExtension(selected).toLowerCase().equalsIgnoreCase("zip")){
-			Utils.createMessageBox(selected.getName() + " nem csomagolható ki!", "Zip kicsomagolás");
+			Utils.createMessageBox(frame, selected.getName() + " nem csomagolható ki!", "Zip kicsomagolás");
 			return;
 		}
 		
 		File target = frame.getNonFocusedBrowser().getCurrentFolder();
 		
-		if(Utils.createYesNoDialog("Ki szeretné csomagolni a \"" + selected.getName() + "\"-et a következõ helyre: \"" +
+		if(Utils.createYesNoDialog(frame, "Ki szeretné csomagolni a \"" + selected.getName() + "\"-et a következõ helyre: \"" +
 			target.getPath() + "\" ?", "Zip kicsomagolás")) {
 			ProgressBarDialog pd = new ProgressBarDialog(new UnzipTask(selected, target), frame);
 			pd.showAndExecuteTask();

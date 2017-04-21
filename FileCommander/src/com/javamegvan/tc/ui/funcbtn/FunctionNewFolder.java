@@ -33,10 +33,10 @@ public class FunctionNewFolder implements FunctionButton {
 		if (response != null && response.length() > 0) {
 			 File newdir = new File(cp.getCurrentFolder(), response);
 			if (newdir.exists()) {
-				Utils.createMessageBox("Ilyan nevû mappa már létezik!", "Hiba");
+				Utils.createMessageBox(frame, "Ilyan nevû mappa már létezik!", "Hiba");
 			} else {
 				if(!newdir.mkdir()){
-					Utils.createMessageBox("Hiba a mappa létrehozása közben!", "Hiba");
+					Utils.createMessageBox(frame, "Hiba a mappa létrehozása közben!", "Hiba");
 				}
 			}
 		}

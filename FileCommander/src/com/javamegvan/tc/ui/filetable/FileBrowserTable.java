@@ -91,17 +91,17 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	public void navigateTo(File root) {
 		CurrentFolder = root;
 
-		Selection.clear();
-		_lastSelectedItem = -1;
-
+		refreshEntries();
+		
 		if (_eventListener != null) {
 			_eventListener.onPathChange(this);
 		}
-
-		refreshEntries();
 	}
 	
 	public void refreshEntries(){
+		Selection.clear();
+		_lastSelectedItem = -1;
+		
 		for (int x = _model.getRowCount() - 1; x >= 0; x--) {
 			_model.removeRow(x);
 		}
@@ -159,7 +159,6 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	}
 
 	public void mousePressed(MouseEvent me) {
-		
 		if (me.getButton() == MouseEvent.BUTTON1) {
 			Point p = me.getPoint();
 			int row = super.rowAtPoint(p);
@@ -172,8 +171,7 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 						try {
 							Desktop.getDesktop().open(f.TargetFile);
 						} catch (IOException e) {
-							// e.printStackTrace();
-							Utils.createMessageBox("Nem található társított alkalmazás!", "Megnyitás");
+							Utils.createMessageBox(this, "Nem található társított alkalmazás!", "Megnyitás");
 						}
 					}
 				} else if (me.getClickCount() < 2) {

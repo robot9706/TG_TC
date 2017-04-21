@@ -18,7 +18,7 @@ public class FileTableModel extends DefaultTableModel {
 	}
 	
 	public boolean isCellEditable(int row, int column){  
-		return false;  
+		return (column == 0);  
 	}
 	
     public Class<?> getColumnClass(int column) {

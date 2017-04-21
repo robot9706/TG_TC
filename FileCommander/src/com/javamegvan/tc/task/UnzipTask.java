@@ -49,7 +49,7 @@ public class UnzipTask extends Task {
 	    			
 	    			File newFile = new File(_targetFolder, fileName);
 
-	    			new File(newFile.getParent()).mkdirs();
+	    			newFile.getParentFile().mkdirs();
 
 	    			FileOutputStream fos = new FileOutputStream(newFile);
 	    		

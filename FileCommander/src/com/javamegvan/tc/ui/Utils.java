@@ -68,8 +68,8 @@ public class Utils {
 		return f.getPath();
 	}
 	
-	public static void createMessageBox(String message, String title){
-		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+	public static void createMessageBox(Component owner, String message, String title){
+		JOptionPane.showMessageDialog(owner, message, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public static Color getBrighterColor(Color original, float brightness){
@@ -85,8 +85,8 @@ public class Utils {
 		f.setLocation((dim.width / 2)- (f.getSize().width / 2), (dim.height / 2) - (f.getSize().height / 2));
 	}
 	
-	public static boolean createYesNoDialog(String question, String title){
-		return (JOptionPane.showOptionDialog(null, question, title, JOptionPane.YES_NO_OPTION,
+	public static boolean createYesNoDialog(Component owner, String question, String title){
+		return (JOptionPane.showOptionDialog(owner, question, title, JOptionPane.YES_NO_OPTION,
 				JOptionPane.PLAIN_MESSAGE, null, new String[] { "Igen", "Nem" }, "Nem") == JOptionPane.YES_OPTION);
 	}
 	
@@ -97,15 +97,15 @@ public class Utils {
 		if (response != null && response.length() > 0) {
 			File newFile = new File(cp.getCurrentFolder(), response);
 			if (newFile.exists()) {
-				Utils.createMessageBox("Ilyan nevû fájl már létezik!", "Hiba");
+				Utils.createMessageBox(frame, "Ilyen nevû fájl már létezik!", "Hiba");
 			} else {
 				try {
 					if(!newFile.createNewFile()){
-						Utils.createMessageBox("Sikertelen a fájl létrehozása!", "Új fájl");
+						Utils.createMessageBox(frame, "Sikertelen a fájl létrehozása!", "Új fájl");
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
-					Utils.createMessageBox("Sikertelen a fájl létrehozása: " + e.getMessage(), "Új fájl");
+					Utils.createMessageBox(frame, "Sikertelen a fájl létrehozása: " + e.getMessage(), "Új fájl");
 				}
 			}
 		}

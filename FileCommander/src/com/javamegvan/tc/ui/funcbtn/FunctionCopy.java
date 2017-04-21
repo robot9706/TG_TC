@@ -2,19 +2,13 @@ package com.javamegvan.tc.ui.funcbtn;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import javax.swing.ProgressMonitor;
-import javax.swing.SwingWorker;
+import java.util.ArrayList;
 
 import com.javamegvan.tc.task.MoveFilesTask;
-import com.javamegvan.tc.task.UnzipTask;
+import com.javamegvan.tc.ui.FileBrowserComponent;
 import com.javamegvan.tc.ui.MainFrame;
 import com.javamegvan.tc.ui.ProgressBarDialog;
+import com.javamegvan.tc.ui.Utils;
 
 public class FunctionCopy implements FunctionButton {
 
@@ -34,41 +28,22 @@ public class FunctionCopy implements FunctionButton {
 		return "Másolás";
 	}
 	
-
-	ProgressMonitor pB = new ProgressMonitor(null,"Copy..","",0,100);
-	
 	public void doFunction(MainFrame frame) {
-		ProgressBarDialog pd = new ProgressBarDialog(new MoveFilesTask(null, null, false), frame);
+		FileBrowserComponent source = frame.getFocusedBrowser();
+		FileBrowserComponent target = frame.getNonFocusedBrowser();
+		
+		ArrayList<File> src = source.getAllSelectedFiles();
+		if(src.size() == 0 && source.getFocusedFile() != null){
+			src.add(source.getFocusedFile());
+		}
+		
+		if(src.size() == 0){
+			Utils.createMessageBox(frame, "Nincs fájl kiválasztva!", "Másolás");
+			return;
+		}
+		
+		ProgressBarDialog pd = new ProgressBarDialog(new MoveFilesTask(src, source.getCurrentFolder(),
+				target.getCurrentFolder(), false), frame);
 		pd.showAndExecuteTask();
-		
-		/*pB.setProgress(0);
-		
-		File source = new File(frame.getFocusedFile().getPath());
-		File dest = new File(frame.getNonFocusedBrowser().getCurrentFolder().getPath(),
-				frame.getFocusedFile().getName());
-
-		try {
-			if (frame.getFocusedBrowser().getSelectedFiles(false).isEmpty()) {
-				@SuppressWarnings("rawtypes")
-				SwingWorker worker = new SwingWorker(){
-
-					@Override
-					protected Object doInBackground() throws Exception {
-						//copy(source, dest);
-						frame.getNonFocusedBrowser().navigateTo(frame.getNonFocusedBrowser().getCurrentFolder());
-						return null;
-					}
-				};
-				worker.execute();
-			} else {
-				for (File f : frame.getFocusedBrowser().getSelectedFiles(false)) {
-					File d = new File(frame.getNonFocusedBrowser().getCurrentFolder().getPath(), f.getName());
-					//copy(f, d);
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 }

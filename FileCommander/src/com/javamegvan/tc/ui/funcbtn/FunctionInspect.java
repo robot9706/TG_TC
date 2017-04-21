@@ -30,10 +30,10 @@ public class FunctionInspect implements FunctionButton {
 			if(file.exists() && file.isFile()){
 				new FileInspectorDialog(file, false);
 			}else{
-				Utils.createMessageBox("Nem fájl van kiválasztva!", "Nézõke");
+				Utils.createMessageBox(frame, "Nem fájl van kiválasztva!", "Nézõke");
 			}
 		}else{
-			Utils.createMessageBox("Nincs fájl kiválasztva!", "Nézõke");
+			Utils.createMessageBox(frame, "Nincs fájl kiválasztva!", "Nézõke");
 		}
 	}
 }
