@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.javamegvan.tc.ui.FileBrowserComponent;
 import com.javamegvan.tc.ui.Utils;
 
 public class FileBrowserTable extends JTable implements MouseListener, KeyListener, FocusListener {
@@ -44,7 +45,9 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	private boolean _doRangeSelection = false;
 	private int _lastSelectedItem = -1;
 
-	public FileBrowserTable() {
+	private FileBrowserComponent _owner;
+	
+	public FileBrowserTable(FileBrowserComponent owner) {
 		super.setModel(_model);
 		super.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 
@@ -77,6 +80,8 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 			kit.setMinWidth(150);
 			kit.setMaxWidth(150);
 		}
+		
+		_owner = owner;
 	}
 
 	public void setTableEventListener(FileBrowserEventListener l) {
@@ -93,23 +98,27 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 			_eventListener.onPathChange(this);
 		}
 
+		refreshEntries();
+	}
+	
+	public void refreshEntries(){
 		for (int x = _model.getRowCount() - 1; x >= 0; x--) {
 			_model.removeRow(x);
 		}
 		_model.setRowCount(0);
 
-		if (root.getParentFile() != null) {
-			addRowEntry(new FileRow(root.getParentFile(), true));
+		if (CurrentFolder.getParentFile() != null) {
+			addRowEntry(new FileRow(CurrentFolder.getParentFile(), true));
 		}
 
-		if (root.listFiles() != null) {
-			for (File f : root.listFiles()) {
+		if (CurrentFolder.listFiles() != null) {
+			for (File f : CurrentFolder.listFiles()) {
 				if (f.isDirectory()) {
 					addRowEntry(new FileRow(f, false));
 				}
 			}
 
-			for (File f : root.listFiles()) {
+			for (File f : CurrentFolder.listFiles()) {
 				if (!f.isDirectory()) {
 					addRowEntry(new FileRow(f, false));
 				}
@@ -223,7 +232,7 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 			bg = (itemSelected ? _backgroundSelectionColor : _backgroundNonSelectionColor);
 		}
 
-		if (!super.isFocusOwner() && !itemSelected) {
+		if (!_owner.isTableFocused() && !itemSelected) {
 			bg = Utils.getBrighterColor(bg, _nonFocusBrightness);
 		}
 		lbl.setBackground(bg);
@@ -237,6 +246,8 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 
 	public void focusGained(FocusEvent arg0) {
 		super.getTableHeader().setBackground(_backgroundSelectionColor);
+		
+		_owner.onTableGotFocus();
 		
 		redrawComponent();
 	}

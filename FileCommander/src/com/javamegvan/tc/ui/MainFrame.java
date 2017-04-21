@@ -35,6 +35,8 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 		new FunctionExit()	
 	};
 	
+	private boolean _browserAFocus = false;
+	
 	public FileBrowserComponent BrowserA;
 	public FileBrowserComponent BrowserB;
 	
@@ -69,8 +71,8 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 				JPanel list = new JPanel();
 				list.setLayout(new GridLayout(1,2));
 				
-				list.add(BrowserA = new FileBrowserComponent());
-				list.add(BrowserB = new FileBrowserComponent());
+				list.add(BrowserA = new FileBrowserComponent(this));
+				list.add(BrowserB = new FileBrowserComponent(this));
 				
 				BrowserA.navigateTo(new File("C:\\"));
 				BrowserB.navigateTo(new File("C:\\"));
@@ -159,7 +161,7 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 	}
 	
 	public File getFocusedFile(){
-		if (BrowserA.hasFocus()){
+		if (_browserAFocus){
 			return BrowserA.getFocusedFile();
 		}
 		
@@ -167,26 +169,27 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 	}
 	
 	public FileBrowserComponent getFocusedBrowser(){	
-		if(BrowserA.hasFocus()){
+		if(_browserAFocus){
 			return BrowserA;
 		}
-			return BrowserB;
+		
+		return BrowserB;
 	}
 	
 	public FileBrowserComponent getNonFocusedBrowser(){	
-		if(BrowserA.hasFocus()){
+		if(_browserAFocus){
 			return BrowserB;
 		}
-			return BrowserA;
+		
+		return BrowserA;
 	}
 	
 	public File getFocusedFolder(){
-		if (BrowserA.hasFocus()){
+		if (_browserAFocus){
 			return BrowserA.getCurrentFolder();
 		}
 		
 		return BrowserB.getCurrentFolder();
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -196,6 +199,28 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 			ZipTools.makeZip(this);
 		}else if(e.getSource() == _unZipButton){
 			ZipTools.uncompressZip(this);
+		}
+	}
+	
+	public void onSideGotFocus(FileBrowserComponent c){
+		_browserAFocus = (c == BrowserA);
+		BrowserA.setFocus(_browserAFocus);
+		BrowserB.setFocus(!_browserAFocus);
+	}
+	
+	public void refreshFileEntries(){
+		BrowserA.refreshTableEntries();
+		BrowserB.refreshTableEntries();
+	}
+	
+	public void smartRefreshFileEntries(FileBrowserComponent source){
+		source.refreshTableEntries();
+		
+		if(source == BrowserA && source.getCurrentFolder() == BrowserB.getCurrentFolder()){
+			BrowserB.refreshTableEntries();
+		}
+		if(source == BrowserB && source.getCurrentFolder() == BrowserA.getCurrentFolder()){
+			BrowserA.refreshTableEntries();
 		}
 	}
 }

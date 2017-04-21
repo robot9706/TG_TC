@@ -39,9 +39,8 @@ public class FunctionNewFolder implements FunctionButton {
 					Utils.createMessageBox("Hiba a mappa létrehozása közben!", "Hiba");
 				}
 			}
-		}else{
-			Utils.createMessageBox("Érvénytelen név!", "Hiba");
 		}
+		
 		cp.navigateTo(cp.getCurrentFolder());
 	}
 }

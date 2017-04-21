@@ -3,6 +3,7 @@ package com.javamegvan.tc.ui.funcbtn;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import com.javamegvan.tc.ui.FileBrowserComponent;
 import com.javamegvan.tc.ui.MainFrame;
 import com.javamegvan.tc.ui.Utils;
 
@@ -24,22 +25,24 @@ public class FunctionDelete implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
-		if (!(frame.getFocusedBrowser().getSelectedFiles(false).isEmpty())) {
+		FileBrowserComponent focus = frame.getFocusedBrowser();
+		
+		if (!focus.getSelectedFiles(false).isEmpty()) {
 			if (Utils.createYesNoDialog("Biztos benne?", "Törlés")) {
-				for (File f : frame.getFocusedBrowser().getSelectedFiles(false)) {
+				for (File f : focus.getSelectedFiles(false)) {
 					deleteAll(f);
 				}
-				frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
+				
+				frame.smartRefreshFileEntries(focus);
 			}
-		} else {
-
-			if (!(frame.getFocusedFile() == null)) {
-				File focused = frame.getFocusedFile();
+		}else{
+			if (!(focus.getFocusedFile() == null)) {
+				File focused = focus.getFocusedFile();
 				if (Utils.createYesNoDialog("Biztos benne?", "Törlés")) {
 					deleteAll(focused);
 				}
 
-				frame.getFocusedBrowser().navigateTo(frame.getFocusedFolder());
+				frame.smartRefreshFileEntries(focus);
 			} else {
 				Utils.createMessageBox("Nincs fájl kijelölve!", "Hiba");
 			}
@@ -47,7 +50,6 @@ public class FunctionDelete implements FunctionButton {
 	}
 
 	public void deleteAll(File f) {
-
 		if (f.isDirectory()) {
 			String[] entries = f.list();
 			for (String s : entries) {

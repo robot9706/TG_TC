@@ -36,6 +36,7 @@ public class FileInspectorDialog extends JFrame implements ActionListener, Docum
 	
 	public FileInspectorDialog(File file, boolean editMode){		
 		super.setSize(750, 500);
+		super.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Utils.centerJForm(this);
 		
 		if(editMode){

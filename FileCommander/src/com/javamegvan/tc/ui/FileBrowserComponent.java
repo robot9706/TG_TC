@@ -25,13 +25,18 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 	private static final long serialVersionUID = -4963834230107742761L;
 
 	private FileBrowserTable _table;
+	private boolean _isFocused = false;
    
 	private JComboBox<File> _driveSelector;
 	private JLabel _driveInfo;
 	private JLabel _pathInfo;
 	private JLabel _selectionInfo;
 	
-	public FileBrowserComponent(){
+	private MainFrame _owner;
+	
+	public FileBrowserComponent(MainFrame owner){
+		_owner = owner;
+		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		//Top row
@@ -67,11 +72,11 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 		
 		//File browser table row
 		{
-			_table = new FileBrowserTable();
+			_table = new FileBrowserTable(this);
 			_table.setTableEventListener(this);
 			
 			JScrollPane pane = new JScrollPane(_table);
-			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); 
+			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
 			add(pane);
 		}
 		
@@ -94,7 +99,7 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 			_driveSelector.addItem(f);
 		}
 	}
-	
+
 	public void navigateTo(File file){
 		_table.navigateTo(file);
 		
@@ -197,7 +202,7 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 	}
 	
 	public boolean hasFocus(){
-		return _table.isFocusOwner();
+		return _table.hasFocus(); //_table.isFocusOwner();
 	}
 	
 	public void doFocus(){
@@ -228,5 +233,21 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 		}
 		
 		return files;
+	}
+	
+	public void onTableGotFocus(){
+		_owner.onSideGotFocus(this);
+	}
+	
+	public void setFocus(boolean f){
+		_isFocused = f;
+	}
+	
+	public boolean isTableFocused(){
+		return _isFocused;
+	}
+	
+	public void refreshTableEntries(){
+		_table.refreshEntries();
 	}
 }
