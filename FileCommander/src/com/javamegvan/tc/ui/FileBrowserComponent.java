@@ -235,6 +235,16 @@ public class FileBrowserComponent extends JPanel implements ActionListener, File
 		return files;
 	}
 	
+	public ArrayList<File> getAllSelectedFiles(){
+		ArrayList<File> files = new ArrayList<File>();
+		
+		for(FileRow s : _table.Selection){
+			files.add(s.TargetFile);
+		}
+		
+		return files;
+	}
+	
 	public void onTableGotFocus(){
 		_owner.onSideGotFocus(this);
 	}

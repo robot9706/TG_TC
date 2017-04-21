@@ -40,9 +40,10 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 	public FileBrowserComponent BrowserA;
 	public FileBrowserComponent BrowserB;
 	
-	private JMenuItem _exitButton;
+	private JMenuItem _newFile;
 	private JMenuItem _createZipButton;
 	private JMenuItem _unZipButton;
+	private JMenuItem _exitButton;
 
 	public MainFrame(){
 		super.setTitle("Andiamo A Comandare");
@@ -119,11 +120,14 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 			JMenu m = new JMenu("Fájl");
 			j.add(m);
 			
+			m.add(_newFile = new JMenuItem("Új fájl"));
+			m.add(new JSeparator());
 			m.add(_createZipButton = new JMenuItem("Fájlok tömörítése"));
 			m.add(_unZipButton = new JMenuItem("Kicsomagolás"));
 			m.add(new JSeparator());
 			m.add(_exitButton = new JMenuItem("Kilépés"));
 			
+			_newFile.addActionListener(this);
 			_createZipButton.addActionListener(this);
 			_unZipButton.addActionListener(this);
 			_exitButton.addActionListener(this);
@@ -191,16 +195,6 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 		
 		return BrowserB.getCurrentFolder();
 	}
-
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == _exitButton){
-			System.exit(0);
-		}else if(e.getSource() == _createZipButton){
-			ZipTools.makeZip(this);
-		}else if(e.getSource() == _unZipButton){
-			ZipTools.uncompressZip(this);
-		}
-	}
 	
 	public void onSideGotFocus(FileBrowserComponent c){
 		_browserAFocus = (c == BrowserA);
@@ -216,11 +210,23 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 	public void smartRefreshFileEntries(FileBrowserComponent source){
 		source.refreshTableEntries();
 		
-		if(source == BrowserA && source.getCurrentFolder() == BrowserB.getCurrentFolder()){
+		if(source == BrowserA && source.getCurrentFolder().equals(BrowserB.getCurrentFolder())){
 			BrowserB.refreshTableEntries();
 		}
-		if(source == BrowserB && source.getCurrentFolder() == BrowserA.getCurrentFolder()){
+		if(source == BrowserB && source.getCurrentFolder().equals(BrowserA.getCurrentFolder())){
 			BrowserA.refreshTableEntries();
+		}
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == _exitButton){
+			System.exit(0);
+		}else if(e.getSource() == _createZipButton){
+			ZipTools.makeZip(this);
+		}else if(e.getSource() == _unZipButton){
+			ZipTools.uncompressZip(this);
+		}else if(e.getSource() == _newFile){
+			Utils.createNewEmptyFile(this);
 		}
 	}
 }

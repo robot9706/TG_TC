@@ -41,6 +41,6 @@ public class FunctionNewFolder implements FunctionButton {
 			}
 		}
 		
-		cp.navigateTo(cp.getCurrentFolder());
+		frame.smartRefreshFileEntries(cp);
 	}
 }

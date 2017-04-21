@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
@@ -87,5 +88,28 @@ public class Utils {
 	public static boolean createYesNoDialog(String question, String title){
 		return (JOptionPane.showOptionDialog(null, question, title, JOptionPane.YES_NO_OPTION,
 				JOptionPane.PLAIN_MESSAGE, null, new String[] { "Igen", "Nem" }, "Nem") == JOptionPane.YES_OPTION);
+	}
+	
+	public static void createNewEmptyFile(MainFrame frame){
+		FileBrowserComponent cp = frame.getFocusedBrowser();
+
+		String response = JOptionPane.showInputDialog("Az új fájl neve?");
+		if (response != null && response.length() > 0) {
+			File newFile = new File(cp.getCurrentFolder(), response);
+			if (newFile.exists()) {
+				Utils.createMessageBox("Ilyan nevû fájl már létezik!", "Hiba");
+			} else {
+				try {
+					if(!newFile.createNewFile()){
+						Utils.createMessageBox("Sikertelen a fájl létrehozása!", "Új fájl");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+					Utils.createMessageBox("Sikertelen a fájl létrehozása: " + e.getMessage(), "Új fájl");
+				}
+			}
+		}
+		
+		frame.smartRefreshFileEntries(cp);
 	}
 }

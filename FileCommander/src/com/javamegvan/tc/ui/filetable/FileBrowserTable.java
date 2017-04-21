@@ -245,7 +245,7 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 	}
 
 	public void focusGained(FocusEvent arg0) {
-		super.getTableHeader().setBackground(_backgroundSelectionColor);
+		super.getTableHeader().setBackground(Color.LIGHT_GRAY);
 		
 		_owner.onTableGotFocus();
 		
