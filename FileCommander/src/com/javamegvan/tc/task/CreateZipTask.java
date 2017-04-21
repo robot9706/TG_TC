@@ -33,6 +33,7 @@ public class CreateZipTask extends Task {
 			for(File f : _filesToCompress){
 				entryIndex ++;
 				super.setTotalProgress(entryIndex);
+				super.setMessage("Tömörítés: \"" + f.getName() + "\"");
 				
 				String zipEntryName = baseFolder.relativize(f.toURI()).getPath();
 				

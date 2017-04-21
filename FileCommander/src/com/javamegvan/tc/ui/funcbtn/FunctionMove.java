@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.javamegvan.tc.task.MoveFilesTask;
 import com.javamegvan.tc.ui.MainFrame;
+import com.javamegvan.tc.ui.ProgressBarDialog;
 import com.javamegvan.tc.ui.Utils;
 
 public class FunctionMove implements FunctionButton {
@@ -29,8 +31,10 @@ public class FunctionMove implements FunctionButton {
 	}
 
 	public void doFunction(MainFrame frame) {
-
-		File source = new File(frame.getFocusedFile().getPath());
+		ProgressBarDialog pd = new ProgressBarDialog(new MoveFilesTask(null, null, true), frame);
+		pd.showAndExecuteTask();
+		
+		/*File source = new File(frame.getFocusedFile().getPath());
 		File dest = new File(frame.getNonFocusedBrowser().getCurrentFolder().getPath(),
 				frame.getFocusedFile().getName());
 
@@ -51,7 +55,7 @@ public class FunctionMove implements FunctionButton {
 		}
 
 		frame.BrowserB.navigateTo(frame.BrowserB.getCurrentFolder());
-		frame.BrowserA.navigateTo(frame.BrowserA.getCurrentFolder());
+		frame.BrowserA.navigateTo(frame.BrowserA.getCurrentFolder());*/
 	}
 
 	public void move(File src, File dest) throws IOException {
