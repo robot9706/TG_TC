@@ -16,6 +16,10 @@ public class FunctionInspect implements FunctionButton {
 		return 0;
 	}
 	
+	public boolean isShortcutOnly() {
+		return false;
+	}
+	
 	public String getTextShortcut() {
 		return "F3";
 	}

@@ -13,6 +13,10 @@ public class FunctionExit implements FunctionButton {
 		return KeyEvent.ALT_MASK;
 	}
 	
+	public boolean isShortcutOnly() {
+		return false;
+	}
+	
 	public String getTextShortcut() {
 		return "Alt+F4";
 	}

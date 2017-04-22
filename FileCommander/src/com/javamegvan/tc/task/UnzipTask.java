@@ -66,6 +66,13 @@ public class UnzipTask extends Task {
 
 	    			fos.close();
 	    			zis.closeEntry();
+	    			
+	    			if(super.isCancelRequested()){
+	    				super.taskDone();
+	    				getMain().refreshFileEntries();
+	    				
+	    				return;
+	    			}
 	    		}
 	    		
 	    		zis.close();

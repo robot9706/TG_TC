@@ -164,16 +164,7 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 			int row = super.rowAtPoint(p);
 			if (row != -1) {
 				if (me.getClickCount() % 2 == 0) {
-					FileRow f = (FileRow) super.getValueAt(row, 0);
-					if (f.TargetFile.isDirectory()) {
-						navigateTo(f.TargetFile);
-					} else {
-						try {
-							Desktop.getDesktop().open(f.TargetFile);
-						} catch (IOException e) {
-							Utils.createMessageBox(this, "Nem található társított alkalmazás!", "Megnyitás");
-						}
-					}
+					doNavigateOrOpen(row);
 				} else if (me.getClickCount() < 2) {
 					if (_doMouseSelection) {
 						if (_doRangeSelection) {
@@ -201,11 +192,27 @@ public class FileBrowserTable extends JTable implements MouseListener, KeyListen
 		}
 	}
 
+	private void doNavigateOrOpen(int row){
+		FileRow f = (FileRow) super.getValueAt(row, 0);
+		if (f.TargetFile.isDirectory()) {
+			navigateTo(f.TargetFile);
+		} else {
+			try {
+				Desktop.getDesktop().open(f.TargetFile);
+			} catch (IOException e) {
+				Utils.createMessageBox(this, "Nem található társított alkalmazás!", "Megnyitás");
+			}
+		}
+	}
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (super.getSelectedRow() > -1) {
 				updateSelection((FileRow) super.getValueAt(super.getSelectedRow(), 0), true);
+			}
+		} else if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			if(super.getSelectedRow() > -1){
+				doNavigateOrOpen(super.getSelectedRow());
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_SHIFT) {
 			_doMouseSelection = true;

@@ -11,23 +11,30 @@ import javax.swing.JOptionPane;
 
 public class Utils {
 	public static String getFileExtension(File f){
-		String ext = "";
+		String ext = "-";
 		if(f.isFile()){
-			String name = f.getName();
-			if(name.charAt(0) == '.'){
-				name = name.substring(1);
-			}
-			
-			String[] parts = name.split("\\.");
-			if(parts.length > 1){
-				ext = parts[parts.length - 1];
-			}
+			ext = getFileExtension(f.getName());
 		}
 		
 		if(ext.length() == 0){
 			ext = "-";
 		}
 		
+		return ext;
+	}
+	
+	public static String getFileExtension(String name){
+		String ext = "";
+
+		if(name.charAt(0) == '.'){
+			name = name.substring(1);
+		}
+			
+		String[] parts = name.split("\\.");
+		if(parts.length > 1){
+			ext = parts[parts.length - 1];
+		}
+
 		return ext;
 	}
 	
@@ -55,6 +62,26 @@ public class Utils {
 				name += parts[x] + (x < nameParts - 1 ? "." : "");
 			}
 		}
+		return name;
+	}
+	
+	public static String getFileNameWithoutExtension(String name){
+		if(name.charAt(0) == '.'){
+			name = name.substring(1);
+		}
+			
+		if(name.indexOf('.') == -1){
+			return name;
+		}
+
+		String[] parts = name.split("\\.");
+		
+		name = "";
+		int nameParts = parts.length - 1;
+		for(int x = 0; x < nameParts; x++){
+			name += parts[x] + (x < nameParts - 1 ? "." : "");
+		}
+
 		return name;
 	}
 	

@@ -32,7 +32,8 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 		new FunctionMove(),
 		new FunctionNewFolder(),
 		new FunctionDelete(),
-		new FunctionExit()	
+		new FunctionExit(),
+		new FunctionRename()
 	};
 	
 	private boolean _browserAFocus = false;

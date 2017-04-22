@@ -55,6 +55,16 @@ public class CreateZipTask extends Task {
     			
     			fis.close();
     			out.closeEntry();
+    			
+    			if(super.isCancelRequested()){
+    				out.close();
+    				super.taskDone();
+    				getMain().refreshFileEntries();
+    				
+    				_target.delete();
+    				
+    				return;
+    			}
 			}
 			
 			out.close();

@@ -19,6 +19,10 @@ public class FunctionCopy implements FunctionButton {
 	public int getKeyShortcutModifier() {
 		return 0;
 	}
+	
+	public boolean isShortcutOnly() {
+		return false;
+	}
 
 	public String getTextShortcut() {
 		return "F5";

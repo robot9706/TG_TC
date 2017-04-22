@@ -18,6 +18,10 @@ public class FunctionNewFolder implements FunctionButton {
 		return 0;
 	}
 
+	public boolean isShortcutOnly() {
+		return false;
+	}
+	
 	public String getTextShortcut() {
 		return "F7";
 	}
