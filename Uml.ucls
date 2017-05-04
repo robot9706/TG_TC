@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="Main" project="TG_TC" file="/TG_TC/FileCommander/src/Main.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="73" y="23"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.javamegvan.tc.task.CreateZipTask" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/task/CreateZipTask.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="155" x="186" y="-1"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.javamegvan.tc.task.Task" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/task/Task.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="55" width="191" x="422" y="1"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.javamegvan.tc.task.MoveFilesTask" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/task/MoveFilesTask.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="222" x="158" y="89"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.javamegvan.tc.task.UnzipTask" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/task/UnzipTask.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="118" x="210" y="169"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.javamegvan.tc.ui.MainFrame" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/MainFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="285" x="435" y="416"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.javamegvan.tc.ui.ZipTools" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/ZipTools.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="82" width="112" x="107" y="272"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.javamegvan.tc.ui.FileBrowserComponent" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/FileBrowserComponent.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="234" x="838" y="422"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.javamegvan.tc.ui.FileInspectorDialog" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/FileInspectorDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="221" x="272" y="274"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.javamegvan.tc.ui.ProgressBarDialog" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/ProgressBarDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="221" x="533" y="274"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.javamegvan.tc.ui.Utils" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/Utils.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="61" width="189" x="784" y="269"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.javamegvan.tc.ui.filetable.FileIconTableCellRenderer" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/FileIconTableCellRenderer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="55" width="199" x="1517" y="771"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.javamegvan.tc.ui.filetable.FileSizeTableCellRenderer" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/FileSizeTableCellRenderer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="56" width="290" x="1514" y="640"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.javamegvan.tc.ui.filetable.FileStringTableCellRenderer" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/FileStringTableCellRenderer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="221" x="1515" y="708"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.javamegvan.tc.ui.filetable.FileTableModel" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/FileTableModel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="55" width="170" x="1547" y="353"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" language="java" name="com.javamegvan.tc.ui.filetable.FileBrowserEventListener" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/FileBrowserEventListener.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="56" width="234" x="1051" y="513"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="17" language="java" name="com.javamegvan.tc.ui.filetable.IconCache" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/IconCache.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="149" x="1520" y="579"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="com.javamegvan.tc.ui.filetable.FileBrowserTable" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/FileBrowserTable.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="55" width="288" x="1207" y="422"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="com.javamegvan.tc.ui.filetable.FileRow" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/filetable/FileRow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="140" x="1549" y="504"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionExit" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionExit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="162" x="389" y="814"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionMove" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionMove.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="54" width="162" x="221" y="727"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionCopy" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionCopy.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="162" x="399" y="731"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionRename" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionRename.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="54" width="162" x="574" y="729"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="24" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionButton" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionButton.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="54" width="162" x="655" y="611"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="25" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionInspect" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionInspect.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="54" width="162" x="745" y="726"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionDelete" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionDelete.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="162" x="565" y="815"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionEdit" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionEdit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="162" x="753" y="808"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="com.javamegvan.tc.ui.funcbtn.FunctionNewFolder" project="TG_TC" 
+    file="/TG_TC/FileCommander/src/com/javamegvan/tc/ui/funcbtn/FunctionNewFolder.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="162" x="929" y="727"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <realization id="31">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <realization id="32">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <association id="33">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="34" name="_model"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="37">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="38" name="BrowserA"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="40">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <association id="41">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="42" name="_dialog"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="45" name="_functionButtons"/>      
+      <multiplicity id="46" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="48">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="49" name="_task"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="51">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <association id="52">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="53" name="_table"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="56" name="_owner"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="58">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <realization id="59">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <association id="60">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="61" name="Selection"/>      
+      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="64" name="BrowserB"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="67" name="_eventListener"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="70" name="_owner"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="72">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <realization id="73">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <association id="74">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="75" name="_owner"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
