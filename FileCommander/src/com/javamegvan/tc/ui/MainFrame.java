@@ -94,6 +94,9 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 				
 				final MainFrame frame = this;
 				for(int x = 0;x<_functionButtons.length;x++){
+					if(_functionButtons[x].isShortcutOnly())
+						continue;
+					
 					JButton btn = new JButton(_functionButtons[x].getTextShortcut() + " " + _functionButtons[x].getName());
 					final int index = x;
 					btn.addActionListener(new ActionListener(){
@@ -118,15 +121,15 @@ public class MainFrame extends JFrame implements KeyEventDispatcher, ActionListe
 		{
 			JMenuBar j = new JMenuBar();
 	        	
-			JMenu m = new JMenu("Fájl");
+			JMenu m = new JMenu("FÃ¡jl");
 			j.add(m);
 			
-			m.add(_newFile = new JMenuItem("Új fájl"));
+			m.add(_newFile = new JMenuItem("Ãšj fÃ¡jl"));
 			m.add(new JSeparator());
-			m.add(_createZipButton = new JMenuItem("Fájlok tömörítése"));
-			m.add(_unZipButton = new JMenuItem("Kicsomagolás"));
+			m.add(_createZipButton = new JMenuItem("FÃ¡jlok tÃ¶mÃ¶rÃ­tÃ©se"));
+			m.add(_unZipButton = new JMenuItem("KicsomagolÃ¡s"));
 			m.add(new JSeparator());
-			m.add(_exitButton = new JMenuItem("Kilépés"));
+			m.add(_exitButton = new JMenuItem("KilÃ©pÃ©s"));
 			
 			_newFile.addActionListener(this);
 			_createZipButton.addActionListener(this);
